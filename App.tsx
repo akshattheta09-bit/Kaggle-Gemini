@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import ContentArea from './components/ContentArea';
 import LoadingOverlay from './components/LoadingOverlay';
+import LandingPage from './pages/LandingPage';
 import { StartupPlan, Sector, ValidationLog, ExtractedAssumption } from './types';
 import { generateStartupPlan } from './services/geminiService';
 import { extractAssumptionsFromPlan } from './services/validationService';
@@ -19,6 +20,7 @@ import { extractAssumptionsFromPlan } from './services/validationService';
  * 6. extractedAssumptions: Array of extracted assumptions from the plan.
  */
 const App: React.FC = () => {
+  const [showLanding, setShowLanding] = useState(true);
   const [plan, setPlan] = useState<StartupPlan | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -87,31 +89,37 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen bg-slate-50 dark:bg-slate-950 overflow-hidden text-slate-900 dark:text-slate-100 font-sans relative transition-colors duration-200">
-      {/* Global Loading Overlay */}
-      <LoadingOverlay isLoading={isGenerating} />
+    <>
+      {showLanding ? (
+        <LandingPage onGetStarted={() => setShowLanding(false)} />
+      ) : (
+        <div className="flex h-screen w-screen bg-slate-50 dark:bg-slate-950 overflow-hidden text-slate-900 dark:text-slate-100 font-sans relative transition-colors duration-200">
+          {/* Global Loading Overlay */}
+          <LoadingOverlay isLoading={isGenerating} />
 
-      {/* Left Panel: Inputs */}
-      <Sidebar 
-        onGenerate={handleGenerate} 
-        isGenerating={isGenerating} 
-        isDarkMode={isDarkMode}
-        onToggleTheme={toggleTheme}
-      />
-      
-      {/* Right Panel: Results & Visualization */}
-      <main className="flex-1 relative h-full flex flex-col">
-        {/* Main Display Area */}
-        <ContentArea 
-          plan={plan} 
-          isGenerating={isGenerating} 
-          error={error}
-          validationLogs={validationLogs}
-          extractedAssumptions={extractedAssumptions}
-          onAddValidationLog={handleAddValidationLog}
-        />
-      </main>
-    </div>
+          {/* Left Panel: Inputs */}
+          <Sidebar 
+            onGenerate={handleGenerate} 
+            isGenerating={isGenerating} 
+            isDarkMode={isDarkMode}
+            onToggleTheme={toggleTheme}
+          />
+          
+          {/* Right Panel: Results & Visualization */}
+          <main className="flex-1 relative h-full flex flex-col">
+            {/* Main Display Area */}
+            <ContentArea 
+              plan={plan} 
+              isGenerating={isGenerating} 
+              error={error}
+              validationLogs={validationLogs}
+              extractedAssumptions={extractedAssumptions}
+              onAddValidationLog={handleAddValidationLog}
+            />
+          </main>
+        </div>
+      )}
+    </>
   );
 };
 
