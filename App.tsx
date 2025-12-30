@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import ContentArea from './components/ContentArea';
 import LoadingOverlay from './components/LoadingOverlay';
-import { StartupPlan, Sector } from './types';
+import { StartupPlan, Sector, ValidationLog, ExtractedAssumption } from './types';
 import { generateStartupPlan } from './services/geminiService';
+import { extractAssumptionsFromPlan } from './services/validationService';
 
 /**
  * App Component
@@ -14,11 +15,15 @@ import { generateStartupPlan } from './services/geminiService';
  * 2. isGenerating: A boolean flag to show the loading spinner.
  * 3. error: To display if something goes wrong with the AI service.
  * 4. isDarkMode: Manages the application theme.
+ * 5. validationLogs: Array of validation entries.
+ * 6. extractedAssumptions: Array of extracted assumptions from the plan.
  */
 const App: React.FC = () => {
   const [plan, setPlan] = useState<StartupPlan | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [validationLogs, setValidationLogs] = useState<ValidationLog[]>([]);
+  const [extractedAssumptions, setExtractedAssumptions] = useState<ExtractedAssumption[]>([]);
   
   // Initialize dark mode from system preference or default to false
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -53,12 +58,32 @@ const App: React.FC = () => {
     try {
       const generatedPlan = await generateStartupPlan(idea, sector);
       setPlan(generatedPlan);
+      
+      // Extract assumptions from the new plan
+      const assumptions = extractAssumptionsFromPlan(generatedPlan);
+      setExtractedAssumptions(assumptions);
+      generatedPlan.extractedAssumptions = assumptions;
+      
+      // Reset validation logs for new plan
+      setValidationLogs([]);
     } catch (err) {
       console.error(err);
       setError("Failed to generate startup plan. Please try again.");
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  /**
+   * Handler to add a new validation log
+   */
+  const handleAddValidationLog = (logData: Omit<ValidationLog, 'id' | 'timestamp'>) => {
+    const newLog: ValidationLog = {
+      id: `log_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      timestamp: Date.now(),
+      ...logData
+    };
+    setValidationLogs([...validationLogs, newLog]);
   };
 
   return (
@@ -77,7 +102,14 @@ const App: React.FC = () => {
       {/* Right Panel: Results & Visualization */}
       <main className="flex-1 relative h-full flex flex-col">
         {/* Main Display Area */}
-        <ContentArea plan={plan} isGenerating={isGenerating} error={error} />
+        <ContentArea 
+          plan={plan} 
+          isGenerating={isGenerating} 
+          error={error}
+          validationLogs={validationLogs}
+          extractedAssumptions={extractedAssumptions}
+          onAddValidationLog={handleAddValidationLog}
+        />
       </main>
     </div>
   );

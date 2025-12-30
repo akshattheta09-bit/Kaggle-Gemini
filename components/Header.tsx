@@ -1,7 +1,7 @@
 import React from 'react';
 import { TabId } from '../types';
 import { 
-  Target, Layers, Rocket, Code, DollarSign, Palette, Download, Monitor, Activity, Map, Mic
+  Target, Layers, Rocket, Code, DollarSign, Palette, Download, Monitor, Activity, Map, Mic, CheckCircle2
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -23,6 +23,7 @@ const tabs: { id: TabId; label: string; icon: React.ReactNode }[] = [
   { id: 'app-scaffold', label: 'Scaffold', icon: <Code className="w-4 h-4" /> },
   { id: 'financials', label: 'Financials', icon: <DollarSign className="w-4 h-4" /> },
   { id: 'assets', label: 'Assets', icon: <Palette className="w-4 h-4" /> },
+  { id: 'validation', label: 'Validation', icon: <CheckCircle2 className="w-4 h-4" /> },
 ];
 
 /**

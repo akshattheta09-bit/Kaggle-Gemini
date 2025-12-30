@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StartupPlan, TabId } from '../types';
+import { StartupPlan, TabId, ValidationLog, ExtractedAssumption } from '../types';
 import Header from './Header';
 import { 
   StrategyView, 
@@ -11,7 +11,8 @@ import {
   MockupsView,
   ViabilityView,
   ExecutionRoadmapView,
-  PitchScriptView
+  PitchScriptView,
+  ValidationTabView
 } from './TabViews';
 import { AlertTriangle, Sparkles } from 'lucide-react';
 import { downloadBlueprint } from '../services/exportService';
@@ -20,6 +21,9 @@ interface ContentAreaProps {
   plan: StartupPlan | null;
   isGenerating: boolean;
   error: string | null;
+  validationLogs?: ValidationLog[];
+  extractedAssumptions?: ExtractedAssumption[];
+  onAddValidationLog?: (log: Omit<ValidationLog, 'id' | 'timestamp'>) => void;
 }
 
 /**
@@ -28,7 +32,13 @@ interface ContentAreaProps {
  * Displays the main results panel.
  * Features a refined empty state and error state.
  */
-const ContentArea: React.FC<ContentAreaProps> = ({ plan, error }) => {
+const ContentArea: React.FC<ContentAreaProps> = ({ 
+  plan, 
+  error, 
+  validationLogs = [],
+  extractedAssumptions = [],
+  onAddValidationLog
+}) => {
   const [activeTab, setActiveTab] = useState<TabId>('strategy');
 
   const handleDownload = () => {
@@ -101,6 +111,7 @@ const ContentArea: React.FC<ContentAreaProps> = ({ plan, error }) => {
           {activeTab === 'app-scaffold' && <AppScaffoldView data={plan.appScaffold} />}
           {activeTab === 'financials' && <FinancialsView data={plan.financials} />}
           {activeTab === 'assets' && <AssetsView data={plan.assets} />}
+          {activeTab === 'validation' && onAddValidationLog && <ValidationTabView data={plan} validationLogs={validationLogs} extractedAssumptions={extractedAssumptions} onAddValidationLog={onAddValidationLog} />}
         </div>
       </div>
     </div>

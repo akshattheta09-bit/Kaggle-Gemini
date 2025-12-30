@@ -148,6 +148,48 @@ export interface PitchScriptData {
 }
 
 /**
+ * VALIDATION ENGINE DATA
+ * Extracted assumptions and validation tracking.
+ */
+export interface ExtractedAssumption {
+  id: string;
+  category: string; // e.g., "Market", "Product", "Revenue", "Feasibility"
+  text: string;
+  criticality: 'core' | 'helpful'; // Core = must validate, Helpful = nice to have
+  confidence: 'high' | 'medium' | 'low';
+}
+
+export interface ValidationLog {
+  id: string;
+  timestamp: number; // Unix timestamp
+  type: 'assumption_result' | 'decision_point' | 'market_signal';
+  assumptionId?: string; // For assumption_result type
+  founderObservation: string; // User's written validation
+  metrics?: Record<string, string | number>; // e.g., { "users_acquired": 42, "conversion_rate": "3.2%" }
+  decision?: string; // For decision_point type
+  status?: 'validating' | 'validated' | 'broken'; // For assumption_result type
+}
+
+export interface DecisionPath {
+  pathA: string;
+  pathB: string;
+}
+
+export interface DecisionReasoning {
+  question: string;
+  paths: DecisionPath;
+  recommendation: string;
+  cascadeEffects: string[];
+}
+
+export interface ValidationDashboard {
+  validatingAssumptions: ExtractedAssumption[];
+  atRiskAssumptions: ExtractedAssumption[];
+  brokenAssumptions: ExtractedAssumption[];
+  nextDecisionPoint: string | null;
+}
+
+/**
  * MASTER PLAN OBJECT
  * This is the root object returned by Gemini.
  */
@@ -162,7 +204,8 @@ export interface StartupPlan {
   viability: ViabilityData;
   executionRoadmap: ExecutionRoadmapData;
   pitchScript: PitchScriptData;
+  extractedAssumptions?: ExtractedAssumption[];
 }
 
 // Valid keys for tab navigation
-export type TabId = 'strategy' | 'viability' | 'execution-roadmap' | 'pitch-script' | 'product' | 'mvp' | 'mockups' | 'app-scaffold' | 'financials' | 'assets';
+export type TabId = 'strategy' | 'viability' | 'execution-roadmap' | 'pitch-script' | 'product' | 'mvp' | 'mockups' | 'app-scaffold' | 'financials' | 'assets' | 'validation';

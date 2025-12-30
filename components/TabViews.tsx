@@ -1,6 +1,9 @@
 import React from 'react';
-import { StartupPlan } from '../types';
+import { StartupPlan, ValidationLog, ExtractedAssumption } from '../types';
 import SectionCard from './common/SectionCard';
+import ValidationTab from './ValidationTab';
+import ValidationDashboard from './ValidationDashboard';
+import ValidationHistory from './ValidationHistory';
 import { 
   Sparkles, Target, CheckCircle2, Zap, Users, Box, 
   TrendingUp, ShieldCheck, DollarSign, Server, Database, 
@@ -581,5 +584,38 @@ export const AssetsView: React.FC<{ data: StartupPlan['assets'] }> = ({ data }) 
         ))}
       </div>
     </SectionCard>
+  </div>
+);
+
+/* --- VALIDATION VIEW --- */
+interface ValidationTabViewProps {
+  data: StartupPlan;
+  validationLogs: ValidationLog[];
+  extractedAssumptions: ExtractedAssumption[];
+  onAddValidationLog: (log: Omit<ValidationLog, 'id' | 'timestamp'>) => void;
+}
+
+export const ValidationTabView: React.FC<ValidationTabViewProps> = ({
+  data,
+  validationLogs,
+  extractedAssumptions,
+  onAddValidationLog
+}) => (
+  <div className="space-y-6">
+    <ValidationDashboard 
+      plan={data}
+      validationLogs={validationLogs}
+      extractedAssumptions={extractedAssumptions}
+    />
+    
+    <ValidationTab 
+      validationLogs={validationLogs}
+      extractedAssumptions={extractedAssumptions}
+      onAddLog={onAddValidationLog}
+    />
+    
+    <ValidationHistory 
+      validationLogs={validationLogs}
+    />
   </div>
 );
