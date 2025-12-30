@@ -1,29 +1,53 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 
 interface HeroProps {
   onGetStarted: () => void;
 }
 
 /**
- * Hero Section - Apple Level Design
+ * Hero Section - Professional Design with Blue Accents
  * 
- * Minimal, elegant hero with:
- * - Clean typography hierarchy
- * - Subtle, refined animations
- * - No colorful orbs or distractions
- * - Premium whitespace
+ * Features:
+ * - Bold typography hierarchy
+ * - Blue gradient accents
+ * - Animated background elements
+ * - Premium design with energy
  * - Clear value proposition
  */
 const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
   return (
     <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden pt-32 pb-20 px-8">
-      {/* Subtle background element */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-black"></div>
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-50 via-white to-slate-50 dark:from-blue-950/30 dark:via-black dark:to-slate-950"></div>
       
-      {/* Minimal decorative element - only visible as subtle gradient */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-slate-100 dark:bg-slate-900 rounded-full opacity-20 blur-3xl -mr-48 -mt-48"></div>
+      {/* Animated blue orbs */}
+      <motion.div 
+        className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-400/20 dark:bg-blue-600/10 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div 
+        className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-indigo-400/20 dark:bg-indigo-600/10 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1
+        }}
+      />
 
       {/* Hero Content */}
       <div className="relative z-10 max-w-4xl mx-auto text-center space-y-8">
@@ -58,13 +82,21 @@ const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
           >
             <motion.button
               onClick={onGetStarted}
-              className="px-8 py-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold text-base transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/50 flex items-center gap-2"
+              className="relative px-8 py-3 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-base shadow-lg shadow-blue-500/30 transition-all duration-300 hover:shadow-blue-500/50 flex items-center gap-2 overflow-hidden group"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              Get started
-              <ArrowRight className="w-4 h-4" />
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-blue-700 to-indigo-700"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: "0%" }}
+                transition={{ duration: 0.3 }}
+              />
+              <span className="relative flex items-cen-2 border-blue-200 dark:border-blue-800 text-slate-900 dark:text-white font-semibold text-base transition-all duration-300 hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:border-blue-300 dark:hover:border-blue-7
+                Get started
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </span>
             </motion.button>
 
             <motion.button
@@ -77,15 +109,16 @@ const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
             </motion.button>
           </motion.div>
 
-          {/* Trust Line */}
-          <motion.p 
-            className="mt-12 text-sm text-slate-600 dark:text-slate-400 font-light"
+          {/* Trust Line with Icon */}
+          <motion.div 
+            className="mt-12 flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 font-light"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            No credit card required. Free and instant.
-          </motion.p>
+            <Sparkles className="w-4 h-4 text-blue-500" />
+            <span>No credit card required. Free and instant.</span>
+          </motion.div>
         </motion.div>
       </div>
 

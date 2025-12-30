@@ -75,7 +75,7 @@ const Workflow: React.FC = () => {
               className="flex gap-8 items-start"
             >
               {/* Step Number */}
-              <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-slate-900 dark:bg-white text-white dark:text-black font-semibold text-sm">
+              <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-semibold text-sm shadow-lg shadow-blue-500/30">
                 {step.number}
               </div>
 

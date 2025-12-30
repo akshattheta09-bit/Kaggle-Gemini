@@ -36,7 +36,7 @@ const FinalCTA: React.FC<FinalCTAProps> = ({ onGetStarted }) => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <motion.button
             onClick={onGetStarted}
-            className="px-8 py-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold text-base transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/50 flex items-center gap-2"
+            className="px-8 py-3 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-base transition-all duration-300 hover:from-blue-700 hover:to-indigo-700 shadow-xl shadow-blue-500/30 flex items-center gap-2"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}

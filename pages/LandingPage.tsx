@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Navigation from '../components/landing/Navigation';
-import Hero from '../components/landing/Hero';
+import AnimatedHero from '../components/landing/AnimatedHero';
 import Capabilities from '../components/landing/Capabilities';
 import ShowcaseParallax from '../components/landing/ShowcaseParallax';
 import Workflow from '../components/landing/Workflow';
@@ -12,15 +12,15 @@ import Footer from '../components/landing/Footer';
 /**
  * LandingPage Component
  * 
- * Premium landing experience for AutoFounder.
- * Designed to feel like a serious product (Linear, Cursor, Framer level).
+ * Premium landing experience for AutoFounder with animated hero.
+ * Features blue gradient accents and professional design.
  * 
  * Architecture:
  * - Modular, reusable components
  * - Smooth scroll animations via Framer Motion
- * - 3D transforms and parallax effects
- * - Clean, minimal design language
- * - No marketing fluff—just clarity
+ * - Animated marquee hero section
+ * - Blue brand color throughout
+ * - Professional card designs
  */
 interface LandingPageProps {
   onGetStarted: () => void;
@@ -28,12 +28,12 @@ interface LandingPageProps {
 
 const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-white dark:bg-black text-slate-900 dark:text-slate-100">
       {/* Fixed Navigation */}
       <Navigation onGetStarted={onGetStarted} />
 
-      {/* Hero Section */}
-      <Hero onGetStarted={onGetStarted} />
+      {/* Animated Hero Section with Marquee */}
+      <AnimatedHero onGetStarted={onGetStarted} />
 
       {/* Capabilities Section */}
       <Capabilities />

@@ -53,7 +53,7 @@ const Navigation: React.FC<NavigationProps> = ({ onGetStarted }) => {
         {/* CTA Button - Blue Accent */}
         <motion.button
           onClick={onGetStarted}
-          className="px-6 py-2 rounded-full text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-all duration-300 shadow-lg shadow-blue-500/25"
+          className="px-6 py-2 rounded-full text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg shadow-blue-500/20"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}

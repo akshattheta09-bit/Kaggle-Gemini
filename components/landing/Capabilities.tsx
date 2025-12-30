@@ -76,7 +76,7 @@ const Capabilities: React.FC = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
   return (
-    <section ref={ref} className="relative py-32 px-8 bg-white dark:bg-black">
+    <section ref={ref} className="relative py-32 px-8 bg-gradient-to-b from-white via-blue-50/30 to-white dark:from-black dark:via-blue-950/20 dark:to-black">
       <motion.div className="max-w-6xl mx-auto" style={{ opacity }}>
         {/* Section Header */}
         <motion.div 
