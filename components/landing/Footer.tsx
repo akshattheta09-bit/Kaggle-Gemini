@@ -36,8 +36,8 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-white dark:bg-black border-t border-slate-200 dark:border-slate-900">
-      <div className="max-w-7xl mx-auto px-8 py-16">
+    <footer className="bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-white/10">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 py-20">
         {/* Main Footer Grid */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-12 mb-16">
           {/* Brand Column */}
@@ -60,13 +60,13 @@ const Footer: React.FC = () => {
 
           {/* Product Links */}
           <div>
-            <h4 className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wide mb-6">Product</h4>
-            <ul className="space-y-4">
+            <h4 className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-widest mb-8">Product</h4>
+            <ul className="space-y-5">
               {footerLinks.product.map((link, i) => (
                 <li key={i}>
                   <motion.a
                     href={link.href}
-                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors font-light"
                     whileHover={{ x: 2 }}
                   >
                     {link.label}
@@ -78,13 +78,13 @@ const Footer: React.FC = () => {
 
           {/* Company Links */}
           <div>
-            <h4 className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wide mb-6">Company</h4>
-            <ul className="space-y-4">
+            <h4 className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-widest mb-8">Company</h4>
+            <ul className="space-y-5">
               {footerLinks.company.map((link, i) => (
                 <li key={i}>
                   <motion.a
                     href={link.href}
-                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors font-light"
                     whileHover={{ x: 2 }}
                   >
                     {link.label}
@@ -96,13 +96,13 @@ const Footer: React.FC = () => {
 
           {/* Legal Links */}
           <div>
-            <h4 className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wide mb-6">Legal</h4>
-            <ul className="space-y-4">
+            <h4 className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-widest mb-8">Legal</h4>
+            <ul className="space-y-5">
               {footerLinks.legal.map((link, i) => (
                 <li key={i}>
                   <motion.a
                     href={link.href}
-                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors font-light"
                     whileHover={{ x: 2 }}
                   >
                     {link.label}
@@ -114,13 +114,13 @@ const Footer: React.FC = () => {
 
           {/* Social Links */}
           <div>
-            <h4 className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wide mb-6">Social</h4>
-            <ul className="space-y-4">
+            <h4 className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-widest mb-8">Social</h4>
+            <ul className="space-y-5">
               {footerLinks.social.map((link, i) => (
                 <li key={i}>
                   <motion.a
                     href={link.href}
-                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors font-light"
                     whileHover={{ x: 2 }}
                   >
                     {link.label}
@@ -132,11 +132,11 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Divider */}
-        <div className="border-t border-slate-200 dark:border-slate-900 pt-8">
+        <div className="border-t border-slate-200 dark:border-white/10 pt-10">
           {/* Copyright and Additional Info */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
             <motion.p 
-              className="text-xs text-slate-600 dark:text-slate-400"
+              className="text-xs text-slate-600 dark:text-slate-500 font-light"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -147,14 +147,14 @@ const Footer: React.FC = () => {
 
             {/* Status Badge */}
             <motion.div
-              className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400"
+              className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-500 font-light"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <div className="w-2 h-2 rounded-full bg-emerald-500/60"></div>
-              <span>Product available in beta</span>
+              <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+              <span>Launching 2025</span>
             </motion.div>
           </div>
         </div>

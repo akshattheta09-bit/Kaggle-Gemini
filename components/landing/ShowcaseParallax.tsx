@@ -1,5 +1,11 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import img1 from '../../assets/Gemini_Generated_Image_1jedny1jedny1jed.png';
+import img2 from '../../assets/Gemini_Generated_Image_1o67fz1o67fz1o67.png';
+import img3 from '../../assets/Gemini_Generated_Image_94648j94648j9464.png';
+import img4 from '../../assets/Gemini_Generated_Image_ejg48gejg48gejg4.png';
+import img5 from '../../assets/Gemini_Generated_Image_k8lls7k8lls7k8ll.png';
+import img6 from '../../assets/Gemini_Generated_Image_kft5s5kft5s5kft5.png';
 
 /**
  * ShowcaseParallax Component - Apple Level Design
@@ -13,92 +19,61 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 interface ShowcaseItem {
   title: string;
+  shortTitle: string;
   description: string;
+  detailedDescription: string;
   thumbnail: string;
 }
 
 const showcaseItems: ShowcaseItem[] = [
   {
-    title: "Market Strategy",
+    title: "Strategy & Market",
+    shortTitle: "Market Strategy",
     description: "Comprehensive market analysis and positioning",
-    thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=600&fit=crop"
+    detailedDescription: "Positioning, moat, TAM, and competitive map grounded in first-principles reasoning.",
+    thumbnail: img1
   },
   {
-    title: "Product Design",
+    title: "Technical Scaffolding",
+    shortTitle: "Product Design",
     description: "Complete product specs and user journeys",
-    thumbnail: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=600&h=600&fit=crop"
+    detailedDescription: "Architecture, API design, data model, and repo structure—ready for handoff to engineers.",
+    thumbnail: img2
   },
   {
-    title: "Technical Roadmap",
+    title: "Viability Scoring",
+    shortTitle: "Technical Roadmap",
     description: "Full tech stack and architecture plans",
-    thumbnail: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=600&fit=crop"
+    detailedDescription: "Multi-dimensional scoring across feasibility, timing, revenue potential, risk, and resourcing.",
+    thumbnail: img3
   },
   {
-    title: "Viability Analysis",
+    title: "Product Definition",
+    shortTitle: "Viability Analysis",
     description: "10-dimensional feasibility scoring",
-    thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=600&fit=crop"
+    detailedDescription: "User journeys, feature sequencing, acceptance criteria, and crisp release notes.",
+    thumbnail: img4
   },
   {
-    title: "Execution Plan",
+    title: "Execution Roadmap",
+    shortTitle: "Execution Plan",
     description: "Week-by-week roadmap with milestones",
-    thumbnail: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=600&fit=crop"
+    detailedDescription: "Week-by-week sprints with owners, milestones, and success metrics.",
+    thumbnail: img5
   },
   {
-    title: "Financial Modeling",
+    title: "Pitch & Narrative",
+    shortTitle: "Financial Modeling",
     description: "Revenue projections and burn analysis",
-    thumbnail: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=600&h=600&fit=crop"
-  },
-  {
-    title: "Pitch Deck",
-    description: "Investor-ready presentation materials",
-    thumbnail: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=600&fit=crop"
-  },
-  {
-    title: "Team Building",
-    description: "Hiring strategy and org structure",
-    thumbnail: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=600&fit=crop"
-  },
-  {
-    title: "Go-to-Market",
-    description: "Launch strategy and growth tactics",
-    thumbnail: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&h=600&fit=crop"
-  },
-  {
-    title: "Competitive Analysis",
-    description: "Deep competitive intelligence",
-    thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=600&fit=crop"
-  },
-  {
-    title: "Risk Assessment",
-    description: "Comprehensive risk identification",
-    thumbnail: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=600&fit=crop"
-  },
-  {
-    title: "Legal Framework",
-    description: "Entity structure and compliance",
-    thumbnail: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&h=600&fit=crop"
-  },
-  {
-    title: "Brand Identity",
-    description: "Core messaging and positioning",
-    thumbnail: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=600&fit=crop"
-  },
-  {
-    title: "Customer Research",
-    description: "User personas and pain points",
-    thumbnail: "https://images.unsplash.com/photo-1552581234-26160f608093?w=600&h=600&fit=crop"
-  },
-  {
-    title: "Metrics Dashboard",
-    description: "KPIs and success metrics",
-    thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=600&fit=crop"
+    detailedDescription: "Investor and founder voice scripts plus a one-slide story spine.",
+    thumbnail: img6
   }
 ];
 
 const ShowcaseParallax: React.FC = () => {
-  const firstRow = showcaseItems.slice(0, 5);
-  const secondRow = showcaseItems.slice(5, 10);
-  const thirdRow = showcaseItems.slice(10, 15);
+  const firstRow = showcaseItems.slice(0, 2);
+  const secondRow = showcaseItems.slice(2, 4);
+  const thirdRow = showcaseItems.slice(4, 6);
   
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -136,30 +111,27 @@ const ShowcaseParallax: React.FC = () => {
   return (
     <div
       ref={ref}
-      className="h-[300vh] py-40 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-slate-950"
+      className="h-[240vh] py-32 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950"
     >
       {/* Header */}
-      <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-8 w-full left-0 top-0">
+      <div className="max-w-6xl relative mx-auto py-24 md:py-40 px-6 md:px-8 w-full left-0 top-0">
         <motion.h2 
-          className="text-4xl md:text-7xl font-bold text-white mb-6"
+          className="text-5xl md:text-7xl lg:text-7xl font-black text-white mb-8 leading-[1.05]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Everything you need <br />
-          <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            in one system
-          </span>
+          Complete startup system
         </motion.h2>
         <motion.p 
-          className="max-w-2xl text-base md:text-xl text-slate-300 leading-relaxed"
+          className="max-w-2xl text-lg md:text-xl text-slate-300 leading-relaxed font-light"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          From market strategy to technical architecture, from financial modeling to execution roadmaps—AutoFounder generates every artifact you need to build a successful company.
+          Strategy, product design, technical architecture, financial models, pitch decks—AutoFounder generates every artifact needed to launch and scale.
         </motion.p>
       </div>
 
@@ -206,26 +178,35 @@ const ShowcaseCard: React.FC<ShowcaseCardProps> = ({ item, translate }) => {
       whileHover={{
         y: -20,
       }}
-      className="group/product h-96 w-[30rem] relative flex-shrink-0"
+      className="group/product w-[30rem] relative flex-shrink-0"
     >
-      <div className="block group-hover/product:shadow-2xl rounded-2xl overflow-hidden h-full">
-        <img
-          src={item.thumbnail}
-          height="600"
-          width="600"
-          className="object-cover object-center absolute h-full w-full inset-0"
-          alt={item.title}
-          loading="lazy"
-        />
-      </div>
-      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-90 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none rounded-2xl transition-opacity duration-300"></div>
-      <div className="absolute bottom-0 left-0 right-0 p-6 opacity-0 group-hover/product:opacity-100 transition-opacity duration-300">
-        <h2 className="text-white text-xl font-bold mb-1">
-          {item.title}
-        </h2>
-        <p className="text-slate-300 text-sm">
-          {item.description}
-        </p>
+      <div className="space-y-4">
+        {/* Text Content - Always on top, never behind image */}
+        <div className="relative z-20 px-6 pt-6 bg-gradient-to-b from-white/90 to-white/80 dark:from-slate-800/90 dark:to-slate-800/80 backdrop-blur-md rounded-2xl rounded-b-none border border-white/40 dark:border-slate-700/40">
+          <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">
+            {item.title}
+          </h3>
+          <p className="text-sm text-slate-600 dark:text-slate-300 mb-3 font-normal">
+            {item.description}
+          </p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed pb-4 italic">
+            {item.detailedDescription}
+          </p>
+        </div>
+
+        {/* Image - Below text content */}
+        <div className="relative z-10 h-64 w-full rounded-2xl rounded-t-none overflow-hidden shadow-lg shadow-black/20 border border-white/30 dark:border-slate-700/30">
+          <img
+            src={item.thumbnail}
+            height="400"
+            width="480"
+            className="object-cover object-center w-full h-full"
+            alt={item.title}
+            loading="lazy"
+          />
+          {/* Gradient overlay - subtle, never covers text */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/0 to-transparent opacity-0 group-hover/product:opacity-30 transition-opacity duration-300" />
+        </div>
       </div>
     </motion.div>
   );

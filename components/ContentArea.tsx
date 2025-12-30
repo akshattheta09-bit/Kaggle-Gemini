@@ -67,21 +67,25 @@ const ContentArea: React.FC<ContentAreaProps> = ({
   // State 2: Empty (User hasn't generated anything yet)
   if (!plan) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950/50 p-8 text-center h-full transition-colors duration-200 relative overflow-hidden">
-        
-        {/* Subtle Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" 
-             style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, gray 1px, transparent 0)', backgroundSize: '32px 32px' }}>
-        </div>
+      <div className="flex-1 flex flex-col items-center justify-center bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-950/70 dark:to-slate-950 p-8 text-center h-full transition-colors duration-200 relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 opacity-60 [background:radial-gradient(circle_at_20%_20%,rgba(94,162,255,0.14),transparent_32%),radial-gradient(circle_at_80%_20%,rgba(0,213,255,0.10),transparent_28%),radial-gradient(circle_at_70%_80%,rgba(97,165,255,0.10),transparent_30%)]" />
 
-        {/* Minimal Empty State - No Card/Tile */}
-        <div className="relative animate-fadeIn opacity-40 hover:opacity-60 transition-opacity duration-700 flex flex-col items-center">
-          <div className="mb-6 p-4 rounded-3xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-             <Sparkles className="w-8 h-8 text-slate-400 dark:text-slate-500" />
+        <div className="relative animate-fadeIn flex flex-col items-center gap-4 px-8 py-10 rounded-3xl border border-white/70 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur shadow-[0_18px_70px_rgba(79,140,255,0.12)]">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-lg shadow-brand-500/25">
+             <Sparkles className="w-7 h-7 text-white" />
           </div>
-          <p className="text-sm font-medium text-slate-400 dark:text-slate-500 tracking-widest uppercase">
-            Awaiting Input
-          </p>
+          <div className="space-y-1">
+            <p className="text-xs uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400 font-semibold">
+              Awaiting Input
+            </p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md leading-relaxed">
+              Add your sector and idea on the left to generate a full blueprint—strategy, product, tech, roadmap, and pitch—in one pass.
+            </p>
+          </div>
+          <div className="flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400">
+            <div className="w-2 h-2 rounded-full bg-emerald-500/70" />
+            <span>System ready</span>
+          </div>
         </div>
 
       </div>

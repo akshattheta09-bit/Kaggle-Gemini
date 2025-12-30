@@ -65,6 +65,7 @@ const ValidationHistory: React.FC<ValidationHistoryProps> = ({ logs, onSelectLog
                 Filter by Type
               </label>
               <select
+                aria-label="Filter by Type"
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value as typeof filterType)}
                 className="w-full px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -81,6 +82,7 @@ const ValidationHistory: React.FC<ValidationHistoryProps> = ({ logs, onSelectLog
                 Sort Order
               </label>
               <select
+                aria-label="Sort Order"
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value as typeof sortOrder)}
                 className="w-full px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"

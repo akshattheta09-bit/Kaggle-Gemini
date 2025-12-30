@@ -93,7 +93,7 @@ const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
                 whileHover={{ x: "0%" }}
                 transition={{ duration: 0.3 }}
               />
-              <span className="relative flex items-cen-2 border-blue-200 dark:border-blue-800 text-slate-900 dark:text-white font-semibold text-base transition-all duration-300 hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:border-blue-300 dark:hover:border-blue-7
+              <span className="relative inline-flex items-center gap-2">
                 Get started
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
