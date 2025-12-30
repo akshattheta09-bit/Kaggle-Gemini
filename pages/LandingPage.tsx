@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Navigation from '../components/landing/Navigation';
 import Hero from '../components/landing/Hero';
 import Capabilities from '../components/landing/Capabilities';
+import ShowcaseParallax from '../components/landing/ShowcaseParallax';
 import Workflow from '../components/landing/Workflow';
 import Philosophy from '../components/landing/Philosophy';
 import FinalCTA from '../components/landing/FinalCTA';
@@ -36,6 +37,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
 
       {/* Capabilities Section */}
       <Capabilities />
+
+      {/* Showcase Parallax Section */}
+      <ShowcaseParallax />
 
       {/* Workflow Section */}
       <Workflow />

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Target, Code, TrendingUp, CheckCircle2, Rocket, Sparkles, LucideIcon } from 'lucide-react';
+import { Target, Code, TrendingUp, CheckCircle2, Rocket, Sparkles, LucideIcon, ArrowRight } from 'lucide-react';
 
 interface Capability {
   icon: LucideIcon;
@@ -48,23 +48,23 @@ const capabilities: Capability[] = [
   }
 ];
 
-const colorClassMap: Record<string, { bg: string; text: string; glow: string }> = {
-  brand: { bg: 'bg-brand-100 dark:bg-brand-500/10', text: 'text-brand-600 dark:text-brand-400', glow: 'group-hover:shadow-brand-500/20' },
-  blue: { bg: 'bg-blue-100 dark:bg-blue-500/10', text: 'text-blue-600 dark:text-blue-400', glow: 'group-hover:shadow-blue-500/20' },
-  green: { bg: 'bg-green-100 dark:bg-green-500/10', text: 'text-green-600 dark:text-green-400', glow: 'group-hover:shadow-green-500/20' },
-  purple: { bg: 'bg-purple-100 dark:bg-purple-500/10', text: 'text-purple-600 dark:text-purple-400', glow: 'group-hover:shadow-purple-500/20' },
-  orange: { bg: 'bg-orange-100 dark:bg-orange-500/10', text: 'text-orange-600 dark:text-orange-400', glow: 'group-hover:shadow-orange-500/20' },
-  pink: { bg: 'bg-pink-100 dark:bg-pink-500/10', text: 'text-pink-600 dark:text-pink-400', glow: 'group-hover:shadow-pink-500/20' }
+const colorClassMap: Record<string, { bg: string; text: string; border: string; glow: string }> = {
+  brand: { bg: 'bg-blue-50 dark:bg-blue-950/30', text: 'text-blue-600 dark:text-blue-400', border: 'border-blue-200 dark:border-blue-800', glow: 'group-hover:shadow-lg group-hover:shadow-blue-500/10' },
+  blue: { bg: 'bg-cyan-50 dark:bg-cyan-950/30', text: 'text-cyan-600 dark:text-cyan-400', border: 'border-cyan-200 dark:border-cyan-800', glow: 'group-hover:shadow-lg group-hover:shadow-cyan-500/10' },
+  green: { bg: 'bg-emerald-50 dark:bg-emerald-950/30', text: 'text-emerald-600 dark:text-emerald-400', border: 'border-emerald-200 dark:border-emerald-800', glow: 'group-hover:shadow-lg group-hover:shadow-emerald-500/10' },
+  purple: { bg: 'bg-purple-50 dark:bg-purple-950/30', text: 'text-purple-600 dark:text-purple-400', border: 'border-purple-200 dark:border-purple-800', glow: 'group-hover:shadow-lg group-hover:shadow-purple-500/10' },
+  orange: { bg: 'bg-orange-50 dark:bg-orange-950/30', text: 'text-orange-600 dark:text-orange-400', border: 'border-orange-200 dark:border-orange-800', glow: 'group-hover:shadow-lg group-hover:shadow-orange-500/10' },
+  pink: { bg: 'bg-pink-50 dark:bg-pink-950/30', text: 'text-pink-600 dark:text-pink-400', border: 'border-pink-200 dark:border-pink-800', glow: 'group-hover:shadow-lg group-hover:shadow-pink-500/10' }
 };
 
 /**
- * Capabilities Section
+ * Capabilities Section - Apple Level Design
  * 
- * Showcases AutoFounder's core features with:
- * - 3D card transformations on hover
- * - Parallax scroll effects
- * - Staggered animations
- * - Depth and layering
+ * Clean, minimal showcase with:
+ * - Simple, elegant cards
+ * - Monochromatic icon treatment
+ * - Subtle hover states
+ * - Maximum clarity and readability
  */
 const Capabilities: React.FC = () => {
   const ref = useRef<HTMLElement>(null);
@@ -73,41 +73,30 @@ const Capabilities: React.FC = () => {
     offset: ["start end", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
   return (
-    <section ref={ref} className="relative py-32 px-6 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950">
-      <motion.div className="max-w-7xl mx-auto" style={{ opacity }}>
+    <section ref={ref} className="relative py-32 px-8 bg-white dark:bg-black">
+      <motion.div className="max-w-6xl mx-auto" style={{ opacity }}>
         {/* Section Header */}
         <motion.div 
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
+          className="mb-20 max-w-2xl"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <motion.span 
-            className="inline-block px-4 py-2 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400 text-sm font-semibold mb-6"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Capabilities
-          </motion.span>
-          
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-br from-slate-900 to-slate-700 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">
-            A complete system for startup building
+          <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-slate-900 dark:text-white">
+            Everything you need
           </h2>
           
-          <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-            Every dimension of building a company, reasoned through from first principles.
+          <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed font-light">
+            A complete operating system for building companies. Every dimension, reasoned through from first principles.
           </p>
         </motion.div>
 
         {/* Capability Cards Grid */}
-        <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" style={{ y }}>
+        <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {capabilities.map((capability, index) => {
             const Icon = capability.icon;
             const colorClasses = colorClassMap[capability.color];
@@ -115,45 +104,39 @@ const Capabilities: React.FC = () => {
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -8, rotateX: 5, rotateY: 5 }}
-                className="group relative"
-                style={{ perspective: "1000px" }}
+                whileHover={{ y: -8 }}
+                className="group"
               >
-                <div className={`relative p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm transition-all duration-500 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-2xl ${colorClasses.glow}`}>
-                  {/* Background Glow Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-brand-50/0 via-brand-50/0 to-brand-50/0 group-hover:from-brand-50/50 group-hover:via-brand-50/20 group-hover:to-transparent dark:group-hover:from-brand-500/10 dark:group-hover:via-brand-500/5 dark:group-hover:to-transparent rounded-2xl transition-all duration-500 -z-10"></div>
-
+                <div className={`relative p-6 rounded-2xl border ${colorClasses.border} bg-white dark:bg-slate-900 transition-all duration-500 ${colorClasses.glow} hover:border-opacity-80`}>
                   {/* Icon Container */}
                   <motion.div 
-                    className={`w-14 h-14 rounded-xl ${colorClasses.bg} flex items-center justify-center mb-6`}
+                    className={`w-14 h-14 rounded-xl ${colorClasses.bg} flex items-center justify-center mb-5 ${colorClasses.text}`}
                     whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
                   >
-                    <Icon className={`w-7 h-7 ${colorClasses.text}`} />
+                    <Icon className="w-7 h-7" />
                   </motion.div>
 
                   {/* Content */}
-                  <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors duration-300">
+                  <h3 className="text-lg font-semibold mb-2 text-slate-900 dark:text-white group-hover:text-opacity-90 transition-colors">
                     {capability.title}
                   </h3>
                   
-                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
                     {capability.description}
                   </p>
-
-                  {/* Hover Indicator */}
+                  
+                  {/* Hover indicator */}
                   <motion.div
-                    className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"
                     initial={{ x: -10 }}
                     whileHover={{ x: 0 }}
                   >
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-brand-500">
-                      <path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    <ArrowRight className={`w-5 h-5 ${colorClasses.text}`} />
                   </motion.div>
                 </div>
               </motion.div>
