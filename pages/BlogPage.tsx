@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar, Clock, User, Tag, ChevronRight } from 'lucide-react';
 
 // Import images from assets
@@ -23,7 +24,8 @@ const featuredPost = {
   date: 'Dec 28, 2025',
   readTime: '12 min read',
   category: 'Strategy',
-  image: img1
+  image: img1,
+  link: '/docs/viability-scoring'
 };
 
 const posts = [
@@ -35,7 +37,8 @@ const posts = [
     date: 'Dec 22, 2025',
     readTime: '8 min read',
     category: 'Product',
-    image: img2
+    image: img2,
+    link: '/docs/viability-scoring'
   },
   {
     slug: 'pitch-scripts-that-convert',
@@ -45,7 +48,8 @@ const posts = [
     date: 'Dec 18, 2025',
     readTime: '6 min read',
     category: 'Fundraising',
-    image: img3
+    image: img3,
+    link: '/docs/pitch-scripts'
   },
   {
     slug: 'mvp-in-30-days',
@@ -55,7 +59,8 @@ const posts = [
     date: 'Dec 14, 2025',
     readTime: '10 min read',
     category: 'Execution',
-    image: img4
+    image: img4,
+    link: '/docs/blueprint-to-mvp'
   },
   {
     slug: 'founder-market-fit',
@@ -65,7 +70,8 @@ const posts = [
     date: 'Dec 10, 2025',
     readTime: '7 min read',
     category: 'Strategy',
-    image: img5
+    image: img5,
+    link: '/docs/founder-market-fit'
   },
   {
     slug: 'api-integration-guide',
@@ -75,7 +81,8 @@ const posts = [
     date: 'Dec 6, 2025',
     readTime: '5 min read',
     category: 'Technical',
-    image: img6
+    image: img6,
+    link: '/docs/accelerator-integration'
   },
   {
     slug: 'pricing-your-saas',
@@ -85,7 +92,8 @@ const posts = [
     date: 'Dec 2, 2025',
     readTime: '9 min read',
     category: 'Growth',
-    image: img7
+    image: img7,
+    link: '/docs/saas-pricing'
   }
 ];
 
@@ -127,59 +135,60 @@ const BlogPage: React.FC<BlogPageProps> = ({ onReadPost }) => {
       {/* Featured Post */}
       <section className="px-6 pb-16">
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            onClick={() => onReadPost?.(featuredPost.slug)}
-            className="relative group cursor-pointer rounded-3xl overflow-hidden"
-          >
-            {/* Background Image */}
-            <div className="absolute inset-0">
-              <img 
-                src={featuredPost.image} 
-                alt={featuredPost.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-brand-600/90 via-purple-600/80 to-purple-600/70 group-hover:from-brand-600/95 group-hover:via-purple-600/85 group-hover:to-purple-600/75 transition-colors" />
-            </div>
-            
-            <div className="relative z-10 p-10 md:p-16 max-w-2xl">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold">
-                  Featured
-                </span>
-                <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold">
-                  {featuredPost.category}
-                </span>
+          <Link to={featuredPost.link}>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="relative group cursor-pointer rounded-3xl overflow-hidden"
+            >
+              {/* Background Image */}
+              <div className="absolute inset-0">
+                <img 
+                  src={featuredPost.image} 
+                  alt={featuredPost.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-brand-600/90 via-purple-600/80 to-purple-600/70 group-hover:from-brand-600/95 group-hover:via-purple-600/85 group-hover:to-purple-600/75 transition-colors" />
+              </div>
+              
+              <div className="relative z-10 p-10 md:p-16 max-w-2xl">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold">
+                    Featured
+                  </span>
+                  <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold">
+                    {featuredPost.category}
+                  </span>
+                </div>
+
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 group-hover:underline">
+                  {featuredPost.title}
+                </h2>
+
+                <p className="text-lg text-white/80 mb-6">
+                  {featuredPost.excerpt}
+                </p>
+
+                <div className="flex items-center gap-6 text-sm text-white/70">
+                  <span className="flex items-center gap-2">
+                    <User className="w-4 h-4" />
+                    {featuredPost.author}
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4" />
+                    {featuredPost.date}
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    {featuredPost.readTime}
+                  </span>
+                </div>
               </div>
 
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 group-hover:underline">
-                {featuredPost.title}
-              </h2>
-
-              <p className="text-lg text-white/80 mb-6">
-                {featuredPost.excerpt}
-              </p>
-
-              <div className="flex items-center gap-6 text-sm text-white/70">
-                <span className="flex items-center gap-2">
-                  <User className="w-4 h-4" />
-                  {featuredPost.author}
-                </span>
-                <span className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  {featuredPost.date}
-                </span>
-                <span className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  {featuredPost.readTime}
-                </span>
-              </div>
-            </div>
-
-            <ChevronRight className="absolute bottom-10 right-10 w-8 h-8 text-white/50 group-hover:text-white group-hover:translate-x-2 transition-all" />
-          </motion.div>
+              <ChevronRight className="absolute bottom-10 right-10 w-8 h-8 text-white/50 group-hover:text-white group-hover:translate-x-2 transition-all" />
+            </motion.div>
+          </Link>
         </div>
       </section>
 
@@ -215,40 +224,41 @@ const BlogPage: React.FC<BlogPageProps> = ({ onReadPost }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                onClick={() => onReadPost?.(post.slug)}
-                className="group cursor-pointer"
+                className="group"
               >
-                <div className="relative rounded-2xl h-48 mb-5 overflow-hidden group-hover:scale-[1.02] transition-transform">
-                  <img 
-                    src={post.image} 
-                    alt={post.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" />
-                </div>
-                
-                <div className="flex items-center gap-2 mb-3">
-                  <Tag className="w-3 h-3 text-brand-500" />
-                  <span className="text-xs font-semibold text-brand-600 dark:text-brand-400">
-                    {post.category}
-                  </span>
-                </div>
+                <Link to={post.link} className="block cursor-pointer">
+                  <div className="relative rounded-2xl h-48 mb-5 overflow-hidden group-hover:scale-[1.02] transition-transform">
+                    <img 
+                      src={post.image} 
+                      alt={post.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" />
+                  </div>
+                  
+                  <div className="flex items-center gap-2 mb-3">
+                    <Tag className="w-3 h-3 text-brand-500" />
+                    <span className="text-xs font-semibold text-brand-600 dark:text-brand-400">
+                      {post.category}
+                    </span>
+                  </div>
 
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                  {post.title}
-                </h3>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                    {post.title}
+                  </h3>
 
-                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">
-                  {post.excerpt}
-                </p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">
+                    {post.excerpt}
+                  </p>
 
-                <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500">
-                  <span>{post.author}</span>
-                  <span>•</span>
-                  <span>{post.date}</span>
-                  <span>•</span>
-                  <span>{post.readTime}</span>
-                </div>
+                  <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500">
+                    <span>{post.author}</span>
+                    <span>•</span>
+                    <span>{post.date}</span>
+                    <span>•</span>
+                    <span>{post.readTime}</span>
+                  </div>
+                </Link>
               </motion.article>
             ))}
           </div>

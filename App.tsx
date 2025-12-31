@@ -33,6 +33,12 @@ const APIQuickstartPage = lazy(() => import('./pages/docs/APIQuickstartPage'));
 const AuthenticationPage = lazy(() => import('./pages/docs/AuthenticationPage'));
 const SDKsPage = lazy(() => import('./pages/docs/SDKsPage'));
 const ChangelogPage = lazy(() => import('./pages/docs/ChangelogPage'));
+const ViabilityScoringPage = lazy(() => import('./pages/docs/ViabilityScoringPage'));
+const PitchScriptsPage = lazy(() => import('./pages/docs/PitchScriptsPage'));
+const BlueprintToMVPPage = lazy(() => import('./pages/docs/BlueprintToMVPPage'));
+const FounderMarketFitPage = lazy(() => import('./pages/docs/FounderMarketFitPage'));
+const AcceleratorIntegrationPage = lazy(() => import('./pages/docs/AcceleratorIntegrationPage'));
+const SaaSPricingPage = lazy(() => import('./pages/docs/SaaSPricingPage'));
 const SupportPage = lazy(() => import('./pages/SupportPage'));
 const SecurityPage = lazy(() => import('./pages/SecurityPage'));
 const SignInPage = lazy(() => import('./pages/SignInPage'));
@@ -194,6 +200,12 @@ const AppRoutes: React.FC = () => {
           <Route path="/docs/authentication" element={<MarketingLayout><AuthenticationPage /></MarketingLayout>} />
           <Route path="/docs/sdks" element={<MarketingLayout><SDKsPage /></MarketingLayout>} />
           <Route path="/docs/changelog" element={<MarketingLayout><ChangelogPage /></MarketingLayout>} />
+          <Route path="/docs/viability-scoring" element={<MarketingLayout><ViabilityScoringPage /></MarketingLayout>} />
+          <Route path="/docs/pitch-scripts" element={<MarketingLayout><PitchScriptsPage /></MarketingLayout>} />
+          <Route path="/docs/blueprint-to-mvp" element={<MarketingLayout><BlueprintToMVPPage /></MarketingLayout>} />
+          <Route path="/docs/founder-market-fit" element={<MarketingLayout><FounderMarketFitPage /></MarketingLayout>} />
+          <Route path="/docs/accelerator-integration" element={<MarketingLayout><AcceleratorIntegrationPage /></MarketingLayout>} />
+          <Route path="/docs/saas-pricing" element={<MarketingLayout><SaaSPricingPage /></MarketingLayout>} />
           <Route path="/help" element={<MarketingLayout><HelpCenterPage /></MarketingLayout>} />
           <Route path="/support" element={<MarketingLayout><SupportPage /></MarketingLayout>} />
           <Route path="/community" element={<MarketingLayout><CommunityPage /></MarketingLayout>} />
