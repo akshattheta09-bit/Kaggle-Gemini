@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
     ],
     resources: [
       { label: 'Documentation', href: '/docs' },
-      { label: 'Help Center', href: '/help' },
+      { label: 'Help Center', href: '/help-center' },
       { label: 'Community', href: '/community' },
       { label: 'Status', href: '/status' }
     ],
@@ -44,10 +44,10 @@ const Footer: React.FC = () => {
   };
 
   const socialLinks = [
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Github, href: '#', label: 'GitHub' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Mail, href: '#', label: 'Email' }
+    { icon: Twitter, href: 'https://twitter.com/autofounder', label: 'Twitter' },
+    { icon: Github, href: 'https://github.com/autofounder', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://linkedin.com/company/autofounder', label: 'LinkedIn' },
+    { icon: Mail, href: 'mailto:hello@autofounder.io', label: 'Email' }
   ];
 
   return (

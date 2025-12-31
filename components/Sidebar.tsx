@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Sector } from '../types';
-import { ChevronRight, RefreshCw, Trash2, Moon, Sun, ChevronDown, Zap } from 'lucide-react';
+import { ChevronRight, RefreshCw, Trash2, Moon, Sun, ChevronDown, Zap, Sparkles } from 'lucide-react';
 import logoSvg from '../assets/logo.svg';
 
 interface SidebarProps {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { 
   Search, Book, MessageCircle, Video, FileText, 
   ChevronRight, ChevronDown, HelpCircle, Zap, ArrowRight
@@ -100,13 +101,26 @@ const HelpCenterPage: React.FC<HelpCenterPageProps> = ({ onContact }) => {
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { icon: Book, label: 'Documentation', href: '/docs' },
-              { icon: MessageCircle, label: 'Contact Us', href: '/contact' },
-              { icon: Video, label: 'Video Tutorials', href: '#videos' },
-              { icon: HelpCircle, label: 'FAQs', href: '#faqs' }
+              { icon: Book, label: 'Documentation', href: '/docs', isInternal: true },
+              { icon: MessageCircle, label: 'Contact Us', href: '/contact', isInternal: true },
+              { icon: Video, label: 'Video Tutorials', href: '/docs', isInternal: true },
+              { icon: HelpCircle, label: 'FAQs', href: '/support', isInternal: true }
             ].map((link) => {
               const Icon = link.icon;
-              return (
+              return link.isInternal ? (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center">
+                    <Icon className="w-6 h-6 text-brand-600 dark:text-brand-400" />
+                  </div>
+                  <span className="font-medium text-gray-900 dark:text-white text-sm">
+                    {link.label}
+                  </span>
+                </Link>
+              ) : (
                 <a
                   key={link.label}
                   href={link.href}
@@ -133,16 +147,19 @@ const HelpCenterPage: React.FC<HelpCenterPageProps> = ({ onContact }) => {
           </h2>
           <div className="flex flex-wrap gap-3">
             {popularArticles.map((article, index) => (
-              <motion.a
+              <motion.div
                 key={article}
-                href="#"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
               >
-                {article}
-              </motion.a>
+                <Link
+                  to="/docs"
+                  className="inline-block px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
+                >
+                  {article}
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -201,9 +218,9 @@ const HelpCenterPage: React.FC<HelpCenterPageProps> = ({ onContact }) => {
                       className="border-t border-gray-100 dark:border-gray-800"
                     >
                       {category.articles.map((article, articleIndex) => (
-                        <a
+                        <Link
                           key={article.title}
-                          href="#"
+                          to="/docs"
                           className="flex items-center justify-between px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
                         >
                           <span className="text-gray-700 dark:text-gray-300">
@@ -212,7 +229,7 @@ const HelpCenterPage: React.FC<HelpCenterPageProps> = ({ onContact }) => {
                           <span className="text-xs text-gray-400">
                             {article.views} views
                           </span>
-                        </a>
+                        </Link>
                       ))}
                     </motion.div>
                   )}

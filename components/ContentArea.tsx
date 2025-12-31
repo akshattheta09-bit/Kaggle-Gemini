@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { StartupPlan, TabId, ValidationLog, ExtractedAssumption } from '../types';
 import Header from './Header';
 import { 
@@ -36,6 +37,27 @@ interface ContentAreaProps {
  * - Premium card designs
  * - Clean typography
  */
+
+// Map feature IDs from URL to tab IDs
+const featureToTabMap: Record<string, TabId> = {
+  'market-strategy': 'strategy',
+  'product-design': 'product',
+  // Tech architecture belongs in the scaffold/stack view (not MVP spec)
+  'tech-architecture': 'app-scaffold',
+  'viability-scoring': 'viability',
+  'execution-roadmap': 'execution-roadmap',
+  'pitch-scripts': 'pitch-script',
+
+  // Additional landing/marketing CTAs
+  'financial-model': 'financials',
+  'financials': 'financials',
+  'brand-assets': 'assets',
+  'assets': 'assets',
+  'mvp-spec': 'mvp',
+  'mockups': 'mockups',
+  'app-scaffold': 'app-scaffold',
+};
+
 const ContentArea: React.FC<ContentAreaProps> = ({ 
   plan, 
   error, 
@@ -43,7 +65,39 @@ const ContentArea: React.FC<ContentAreaProps> = ({
   extractedAssumptions = [],
   onAddValidationLog
 }) => {
-  const [activeTab, setActiveTab] = useState<TabId>('strategy');
+  const [searchParams] = useSearchParams();
+  const featureParam = searchParams.get('feature');
+
+  const featureLabelMap: Record<string, string> = {
+    'market-strategy': 'Market Strategy',
+    'viability-scoring': 'Viability Score',
+    'execution-roadmap': 'Execution Roadmap',
+    'pitch-scripts': 'Pitch Scripts',
+    'product-design': 'Product Blueprint',
+    'tech-architecture': 'Tech Architecture',
+    'financial-model': 'Financial Model',
+    'brand-assets': 'Brand Assets',
+    'mvp-spec': 'MVP Specification',
+    'mockups': 'Mockups',
+    'app-scaffold': 'Tech Scaffold',
+  };
+  
+  // Determine initial tab based on URL feature parameter
+  const getInitialTab = (): TabId => {
+    if (featureParam && featureToTabMap[featureParam]) {
+      return featureToTabMap[featureParam];
+    }
+    return 'strategy';
+  };
+  
+  const [activeTab, setActiveTab] = useState<TabId>(getInitialTab);
+  
+  // Update tab when feature param changes
+  useEffect(() => {
+    if (featureParam && featureToTabMap[featureParam]) {
+      setActiveTab(featureToTabMap[featureParam]);
+    }
+  }, [featureParam]);
 
   const handleDownload = () => {
     if (plan) {
@@ -84,6 +138,7 @@ const ContentArea: React.FC<ContentAreaProps> = ({
 
   // State 2: Empty (User hasn't generated anything yet)
   if (!plan) {
+    const selectedLabel = featureParam ? featureLabelMap[featureParam] : undefined;
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-8 text-center h-full mesh-bg relative overflow-hidden">
         {/* Decorative elements */}
@@ -122,6 +177,13 @@ const ContentArea: React.FC<ContentAreaProps> = ({
           <p className="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
             Describe your startup idea in the sidebar to generate a comprehensive business plan—complete with strategy, product specs, technical architecture, and investor pitch.
           </p>
+
+          {selectedLabel && (
+            <div className="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 dark:bg-brand-900/20 border border-brand-200/60 dark:border-brand-800/40 text-sm text-brand-700 dark:text-brand-300">
+              <span className="font-semibold">Selected module:</span>
+              <span>{selectedLabel}</span>
+            </div>
+          )}
 
           {/* Tips */}
           <div className="p-6 rounded-2xl bg-white/60 dark:bg-gray-900/40 backdrop-blur-xl border border-black/[0.04] dark:border-white/[0.06]">

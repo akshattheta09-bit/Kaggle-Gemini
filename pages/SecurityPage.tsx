@@ -355,7 +355,7 @@ const SecurityPage: React.FC = () => {
                   security@autofounder.io
                 </a>
                 <a
-                  href="#"
+                  href="/contact"
                   className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white/10 text-white font-semibold hover:bg-white/20 transition-all"
                 >
                   View Bug Bounty

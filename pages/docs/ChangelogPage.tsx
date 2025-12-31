@@ -274,7 +274,7 @@ const ChangelogPage: React.FC = () => {
             </ul>
             <div className="mt-4">
               <Link
-                to="/docs/api-quickstart"
+                to="/docs/quickstart"
                 className="text-brand-500 hover:text-brand-600 font-medium flex items-center gap-1"
               >
                 API Migration Guide

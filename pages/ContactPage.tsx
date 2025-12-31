@@ -208,6 +208,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onSubmit }) => {
                   <select
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    title="Select inquiry subject"
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all"
                   >
                     <option value="general">General Inquiry</option>

@@ -1,229 +1,177 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import img1 from '../../assets/Gemini_Generated_Image_1jedny1jedny1jed.png';
-import img2 from '../../assets/Gemini_Generated_Image_1o67fz1o67fz1o67.png';
-import img3 from '../../assets/Gemini_Generated_Image_94648j94648j9464.png';
-import img4 from '../../assets/Gemini_Generated_Image_ejg48gejg48gejg4.png';
-import img5 from '../../assets/Gemini_Generated_Image_k8lls7k8lls7k8ll.png';
-import img6 from '../../assets/Gemini_Generated_Image_kft5s5kft5s5kft5.png';
-import { Target, Code, Activity, Box, Map, Mic, ArrowRight, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Activity, ArrowRight, Box, Code, Map, Mic, Sparkles, Target } from 'lucide-react';
 
-/**
- * ShowcaseParallax Component - Fixed Background Design
- * 
- * The showcase cards are fixed in the background while the header
- * content scrolls over them, creating a reveal effect.
- */
+type ShowcaseModuleId =
+  | 'market-strategy'
+  | 'viability-scoring'
+  | 'product-design'
+  | 'tech-architecture'
+  | 'execution-roadmap'
+  | 'pitch-scripts';
 
-interface ShowcaseItem {
+interface ShowcaseModule {
+  id: ShowcaseModuleId;
   title: string;
-  shortTitle: string;
+  tagline: string;
   description: string;
-  thumbnail: string;
+  features: string[];
   icon: React.ReactNode;
-  gradient: string;
-  link: string;
+  learnMoreUrl: string;
 }
 
-const showcaseItems: ShowcaseItem[] = [
+const SHOWCASE_MODULES: ShowcaseModule[] = [
   {
-    title: "Market Strategy",
-    shortTitle: "Strategy",
-    description: "TAM, positioning, and competitive analysis",
-    thumbnail: img1,
+    id: 'market-strategy',
+    title: 'Market Strategy',
+    tagline: 'Dominate your market',
+    description:
+      'Complete TAM/SAM/SOM analysis, competitive positioning, and go-to-market playbooks powered by real-time market data.',
+    features: ['Market Sizing', 'Competitor Analysis', 'GTM Strategy'],
     icon: <Target className="w-5 h-5" />,
-    gradient: "from-blue-500 to-cyan-500",
-    link: "/app?feature=market-strategy"
+    learnMoreUrl: '/modules/market-strategy',
   },
   {
-    title: "Product Design",
-    shortTitle: "Product",
-    description: "User journeys and feature specs",
-    thumbnail: img2,
-    icon: <Code className="w-5 h-5" />,
-    gradient: "from-violet-500 to-purple-500",
-    link: "/app?feature=product-design"
-  },
-  {
-    title: "Tech Architecture",
-    shortTitle: "Tech",
-    description: "Stack and system design",
-    thumbnail: img3,
-    icon: <Activity className="w-5 h-5" />,
-    gradient: "from-emerald-500 to-teal-500",
-    link: "/app?feature=tech-architecture"
-  },
-  {
-    title: "Viability Scoring",
-    shortTitle: "Viability",
-    description: "10-dimensional analysis",
-    thumbnail: img4,
+    id: 'viability-scoring',
+    title: 'Viability Score',
+    tagline: 'Data-driven validation',
+    description: '10-dimensional scoring across market timing, competition, and funding potential.',
+    features: ['10 Dimensions', 'Risk Analysis', '95% Accuracy'],
     icon: <Box className="w-5 h-5" />,
-    gradient: "from-orange-500 to-amber-500",
-    link: "/app?feature=viability-scoring"
+    learnMoreUrl: '/modules/viability-score',
   },
   {
-    title: "Execution Roadmap",
-    shortTitle: "Roadmap",
-    description: "Sprint-by-sprint plan",
-    thumbnail: img5,
+    id: 'product-design',
+    title: 'Product Blueprint',
+    tagline: 'Design that converts',
+    description: 'User personas, journey maps, and complete feature specifications.',
+    features: ['User Personas', 'Feature Specs', 'Journey Maps'],
+    icon: <Code className="w-5 h-5" />,
+    learnMoreUrl: '/modules/product-blueprint',
+  },
+  {
+    id: 'tech-architecture',
+    title: 'Tech Architecture',
+    tagline: 'Built to scale',
+    description: 'Technology stack, system design, and infrastructure planning.',
+    features: ['Stack Selection', 'System Design', 'Scalability'],
+    icon: <Activity className="w-5 h-5" />,
+    learnMoreUrl: '/modules/tech-architecture',
+  },
+  {
+    id: 'execution-roadmap',
+    title: 'Execution Roadmap',
+    tagline: 'Sprint to success',
+    description: '12-week sprint plans with milestones and resource allocation.',
+    features: ['12-Week Sprints', 'Milestones', 'Resources'],
     icon: <Map className="w-5 h-5" />,
-    gradient: "from-pink-500 to-rose-500",
-    link: "/app?feature=execution-roadmap"
+    learnMoreUrl: '/modules/execution-roadmap',
   },
   {
-    title: "Pitch Scripts",
-    shortTitle: "Pitch",
-    description: "VC-ready narratives",
-    thumbnail: img6,
+    id: 'pitch-scripts',
+    title: 'Pitch Scripts',
+    tagline: 'Close every deal',
+    description: 'Investor narratives, elevator pitches, and funding deck outlines.',
+    features: ['Pitch Decks', 'VC Scripts', 'Objection Handling'],
     icon: <Mic className="w-5 h-5" />,
-    gradient: "from-indigo-500 to-blue-500",
-    link: "/app?feature=pitch-scripts"
-  }
+    learnMoreUrl: '/modules/pitch-scripts',
+  },
 ];
 
 const ShowcaseParallax: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  // Header scrolls away while cards remain fixed
-  const headerY = useTransform(scrollYProgress, [0, 0.4], [0, -300]);
-  const headerOpacity = useTransform(scrollYProgress, [0.2, 0.4], [1, 0]);
-  
-  // Cards fade in and become more visible as header scrolls away
-  const cardsOpacity = useTransform(scrollYProgress, [0, 0.3], [0.4, 1]);
-  const cardsScale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1]);
+  const [activeId, setActiveId] = useState<ShowcaseModuleId>('market-strategy');
+  const active = SHOWCASE_MODULES.find((m) => m.id === activeId) ?? SHOWCASE_MODULES[0];
 
   return (
-    <section 
-      ref={containerRef}
-      className="relative min-h-[200vh] bg-gray-950"
-    >
-      {/* Fixed Background Layer with Cards */}
-      <div className="sticky top-0 h-screen overflow-hidden">
-        {/* Background gradient orbs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-brand-500/10 blur-[150px]" />
-          <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-purple-500/10 blur-[150px]" />
+    <section className="relative py-20 md:py-24 bg-gray-50 dark:bg-gray-950">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10 md:mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800/50">
+            <Sparkles className="w-4 h-4 text-brand-500" />
+            <span className="text-sm font-medium text-brand-700 dark:text-brand-300">Complete Startup Toolkit</span>
+            <span className="px-2 py-0.5 rounded-full bg-brand-500 text-white text-xs font-bold">6 AI Modules</span>
+          </div>
+
+          <h2 className="mt-6 text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white leading-tight tracking-tight">
+            Everything you need
+            <br />
+            <span className="bg-gradient-to-r from-brand-500 via-violet-500 to-purple-500 bg-clip-text text-transparent">
+              in one blueprint
+            </span>
+          </h2>
+
+          <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+            Six powerful AI modules work together to transform your idea into an investor-ready startup blueprint.
+          </p>
         </div>
 
-        {/* Cards Grid - Fixed in background */}
-        <motion.div 
-          style={{ opacity: cardsOpacity, scale: cardsScale }}
-          className="absolute inset-0 z-10 flex items-center justify-center"
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {SHOWCASE_MODULES.map((m) => {
+            const isActive = m.id === activeId;
+            return (
+              <button
+                key={m.id}
+                type="button"
+                onClick={() => setActiveId(m.id)}
+                className={
+                  isActive
+                    ? 'inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white shadow-sm'
+                    : 'inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-transparent border border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-gray-900/40'
+                }
+              >
+                <span className={isActive ? 'text-brand-600 dark:text-brand-400' : 'text-gray-500 dark:text-gray-500'}>
+                  {m.icon}
+                </span>
+                <span className="text-sm font-semibold">{m.title}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <motion.div
+          key={active.id}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25 }}
+          className="rounded-3xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm"
         >
-          <div className="w-full max-w-7xl mx-auto px-6 pt-16">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-              {showcaseItems.map((item, index) => (
-                <ShowcaseCard key={index} item={item} index={index} />
+          <div className="p-6 md:p-8">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <div className="text-sm font-semibold text-brand-600 dark:text-brand-400">{active.tagline}</div>
+                <h3 className="mt-1 text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{active.title}</h3>
+                <p className="mt-3 text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl">{active.description}</p>
+              </div>
+              <div className="hidden md:flex w-12 h-12 items-center justify-center rounded-2xl bg-brand-50 dark:bg-brand-950/40 border border-brand-100 dark:border-brand-900/40 text-brand-600 dark:text-brand-400">
+                {active.icon}
+              </div>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              {active.features.map((feature) => (
+                <span
+                  key={feature}
+                  className="px-3 py-1.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                  {feature}
+                </span>
               ))}
+            </div>
+
+            <div className="mt-8">
+              <Link
+                to={active.learnMoreUrl}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:opacity-90 transition-opacity"
+              >
+                Learn more
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
         </motion.div>
-
-        {/* Header Content - Scrolls over the cards */}
-        <motion.div 
-          style={{ y: headerY, opacity: headerOpacity }}
-          className="absolute inset-0 z-20 flex items-center justify-center bg-gradient-to-b from-gray-950 via-gray-950/95 to-gray-950/70 pointer-events-none"
-        >
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8"
-            >
-              <Sparkles className="w-4 h-4 text-brand-400" />
-              <span className="text-sm font-medium text-white/80">Complete System</span>
-            </motion.div>
-            
-            <motion.h2 
-              className="text-5xl md:text-7xl font-bold text-white mb-8 leading-[1.05] tracking-tight"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              Every artifact you need,
-              <br />
-              <span className="bg-gradient-to-r from-brand-400 to-purple-400 bg-clip-text text-transparent">
-                generated in seconds
-              </span>
-            </motion.h2>
-            
-            <motion.p 
-              className="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              Strategy, product design, technical architecture, financial models, pitch decks—AutoFounder generates every artifact needed to launch and scale.
-            </motion.p>
-          </div>
-        </motion.div>
       </div>
-
-      {/* Spacer for scroll effect */}
-      <div className="h-screen" />
     </section>
-  );
-};
-
-interface ShowcaseCardProps {
-  item: ShowcaseItem;
-  index: number;
-}
-
-const ShowcaseCard: React.FC<ShowcaseCardProps> = ({ item, index }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
-    >
-      <Link 
-        to={item.link}
-        className="group block relative overflow-hidden rounded-2xl md:rounded-3xl bg-white/[0.03] backdrop-blur-sm border border-white/[0.08] hover:border-white/[0.15] transition-all duration-500 hover:bg-white/[0.06]"
-      >
-        {/* Image */}
-        <div className="relative aspect-[4/3] overflow-hidden">
-          <img
-            src={item.thumbnail}
-            alt={item.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/50 to-transparent" />
-          
-          {/* Icon Badge */}
-          <div className={`absolute top-3 left-3 w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center text-white shadow-lg`}>
-            {item.icon}
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="p-4 md:p-5">
-          <h3 className="text-base md:text-lg font-semibold text-white mb-1 group-hover:text-brand-400 transition-colors">
-            {item.title}
-          </h3>
-          <p className="text-xs md:text-sm text-gray-400 mb-3">
-            {item.description}
-          </p>
-          
-          {/* Learn more */}
-          <div className="flex items-center gap-1 text-xs md:text-sm font-medium text-brand-400 opacity-0 group-hover:opacity-100 transition-opacity">
-            <span>Learn more</span>
-            <ArrowRight className="w-3 h-3 md:w-4 md:h-4 transform group-hover:translate-x-1 transition-transform" />
-          </div>
-        </div>
-      </Link>
-    </motion.div>
   );
 };
 

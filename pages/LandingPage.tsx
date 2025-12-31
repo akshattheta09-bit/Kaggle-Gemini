@@ -1,7 +1,6 @@
 import React from 'react';
 import Navigation from '../components/landing/Navigation';
 import AnimatedHero from '../components/landing/AnimatedHero';
-import Capabilities from '../components/landing/Capabilities';
 import ShowcaseParallax from '../components/landing/ShowcaseParallax';
 import Workflow from '../components/landing/Workflow';
 import Philosophy from '../components/landing/Philosophy';
@@ -31,10 +30,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       {/* Animated Hero Section */}
       <AnimatedHero onGetStarted={onGetStarted} />
 
-      {/* Capabilities Bento Grid */}
-      <Capabilities />
-
-      {/* 3D Parallax Showcase */}
+      {/* 3D Parallax Showcase - Features Grid */}
       <ShowcaseParallax />
 
       {/* Process Workflow Timeline */}

@@ -238,6 +238,7 @@ const SupportPage: React.FC = () => {
                           value={formData.category}
                           onChange={handleChange}
                           required
+                          title="Select support category"
                           className="w-full px-4 py-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-500 dark:focus:ring-brand-400 text-gray-900 dark:text-white"
                         >
                           <option value="">Select a category</option>
@@ -256,6 +257,7 @@ const SupportPage: React.FC = () => {
                           name="priority"
                           value={formData.priority}
                           onChange={handleChange}
+                          title="Select ticket priority"
                           className="w-full px-4 py-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-500 dark:focus:ring-brand-400 text-gray-900 dark:text-white"
                         >
                           <option value="low">Low</option>
