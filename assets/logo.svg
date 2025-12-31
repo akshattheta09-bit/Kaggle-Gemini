@@ -1,0 +1,19 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0ea5e9;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Rocket body -->
+  <path d="M20 4C20 4 8 12 8 24C8 28 10 32 14 34L20 28L26 34C30 32 32 28 32 24C32 12 20 4 20 4Z" fill="url(#logoGradient)"/>
+  <!-- Window -->
+  <circle cx="20" cy="18" r="4" fill="white" fill-opacity="0.9"/>
+  <!-- Left fin -->
+  <path d="M8 24C6 26 4 30 4 32L10 30C10 28 9 26 8 24Z" fill="url(#logoGradient)" fill-opacity="0.8"/>
+  <!-- Right fin -->
+  <path d="M32 24C34 26 36 30 36 32L30 30C30 28 31 26 32 24Z" fill="url(#logoGradient)" fill-opacity="0.8"/>
+  <!-- Flame -->
+  <path d="M16 34C16 34 18 38 20 40C22 38 24 34 24 34C22 35 20 36 20 36C20 36 18 35 16 34Z" fill="#fb923c"/>
+  <path d="M18 34C18 34 19 37 20 38C21 37 22 34 22 34C21 34.5 20 35 20 35C20 35 19 34.5 18 34Z" fill="#fbbf24"/>
+</svg>
