@@ -2,6 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Calendar, Clock, User, Tag, ChevronRight } from 'lucide-react';
 
+// Import images from assets
+import img1 from '../assets/Gemini_Generated_Image_1jedny1jedny1jed.png';
+import img2 from '../assets/Gemini_Generated_Image_1o67fz1o67fz1o67.png';
+import img3 from '../assets/Gemini_Generated_Image_94648j94648j9464.png';
+import img4 from '../assets/Gemini_Generated_Image_ejg48gejg48gejg4.png';
+import img5 from '../assets/Gemini_Generated_Image_k8lls7k8lls7k8ll.png';
+import img6 from '../assets/Gemini_Generated_Image_kft5s5kft5s5kft5.png';
+import img7 from '../assets/Gemini_Generated_Image_lmxt7nlmxt7nlmxt.png';
+
 interface BlogPageProps {
   onReadPost?: (slug: string) => void;
 }
@@ -14,7 +23,7 @@ const featuredPost = {
   date: 'Dec 28, 2025',
   readTime: '12 min read',
   category: 'Strategy',
-  image: 'gradient-1'
+  image: img1
 };
 
 const posts = [
@@ -25,7 +34,8 @@ const posts = [
     author: 'Sarah Kim',
     date: 'Dec 22, 2025',
     readTime: '8 min read',
-    category: 'Product'
+    category: 'Product',
+    image: img2
   },
   {
     slug: 'pitch-scripts-that-convert',
@@ -34,7 +44,8 @@ const posts = [
     author: 'Marcus Johnson',
     date: 'Dec 18, 2025',
     readTime: '6 min read',
-    category: 'Fundraising'
+    category: 'Fundraising',
+    image: img3
   },
   {
     slug: 'mvp-in-30-days',
@@ -43,7 +54,8 @@ const posts = [
     author: 'Elena Rodriguez',
     date: 'Dec 14, 2025',
     readTime: '10 min read',
-    category: 'Execution'
+    category: 'Execution',
+    image: img4
   },
   {
     slug: 'founder-market-fit',
@@ -52,7 +64,8 @@ const posts = [
     author: 'Alex Chen',
     date: 'Dec 10, 2025',
     readTime: '7 min read',
-    category: 'Strategy'
+    category: 'Strategy',
+    image: img5
   },
   {
     slug: 'api-integration-guide',
@@ -61,7 +74,8 @@ const posts = [
     author: 'Sarah Kim',
     date: 'Dec 6, 2025',
     readTime: '5 min read',
-    category: 'Technical'
+    category: 'Technical',
+    image: img6
   },
   {
     slug: 'pricing-your-saas',
@@ -70,7 +84,8 @@ const posts = [
     author: 'Marcus Johnson',
     date: 'Dec 2, 2025',
     readTime: '9 min read',
-    category: 'Growth'
+    category: 'Growth',
+    image: img7
   }
 ];
 
@@ -117,11 +132,19 @@ const BlogPage: React.FC<BlogPageProps> = ({ onReadPost }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             onClick={() => onReadPost?.(featuredPost.slug)}
-            className="relative group cursor-pointer rounded-3xl overflow-hidden bg-gradient-to-br from-brand-500 to-purple-600 p-10 md:p-16"
+            className="relative group cursor-pointer rounded-3xl overflow-hidden"
           >
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+            {/* Background Image */}
+            <div className="absolute inset-0">
+              <img 
+                src={featuredPost.image} 
+                alt={featuredPost.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-brand-600/90 via-purple-600/80 to-purple-600/70 group-hover:from-brand-600/95 group-hover:via-purple-600/85 group-hover:to-purple-600/75 transition-colors" />
+            </div>
             
-            <div className="relative z-10 max-w-2xl">
+            <div className="relative z-10 p-10 md:p-16 max-w-2xl">
               <div className="flex items-center gap-3 mb-6">
                 <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold">
                   Featured
@@ -195,7 +218,14 @@ const BlogPage: React.FC<BlogPageProps> = ({ onReadPost }) => {
                 onClick={() => onReadPost?.(post.slug)}
                 className="group cursor-pointer"
               >
-                <div className="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 rounded-2xl h-48 mb-5 group-hover:scale-[1.02] transition-transform" />
+                <div className="relative rounded-2xl h-48 mb-5 overflow-hidden group-hover:scale-[1.02] transition-transform">
+                  <img 
+                    src={post.image} 
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" />
+                </div>
                 
                 <div className="flex items-center gap-2 mb-3">
                   <Tag className="w-3 h-3 text-brand-500" />

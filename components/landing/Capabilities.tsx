@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Target, Code, TrendingUp, CheckCircle2, Rocket, Sparkles, FileText, PieChart, Lightbulb, Layers } from 'lucide-react';
 
 /**
@@ -20,6 +21,7 @@ interface CapabilityCard {
   gradient: string;
   iconBg: string;
   size?: 'default' | 'large' | 'wide';
+  learnMoreLink: string;
 }
 
 const capabilities: CapabilityCard[] = [
@@ -29,7 +31,8 @@ const capabilities: CapabilityCard[] = [
     description: "TAM analysis, competitive positioning, and go-to-market strategy grounded in real market data.",
     gradient: "from-blue-500/10 to-cyan-500/10",
     iconBg: "from-blue-500 to-cyan-500",
-    size: 'large'
+    size: 'large',
+    learnMoreLink: "/app?feature=market-strategy"
   },
   {
     icon: Layers,
@@ -37,6 +40,7 @@ const capabilities: CapabilityCard[] = [
     description: "User journeys, feature specs, and wireframe concepts.",
     gradient: "from-purple-500/10 to-pink-500/10",
     iconBg: "from-purple-500 to-pink-500",
+    learnMoreLink: "/app?feature=product-design"
   },
   {
     icon: Code,
@@ -44,6 +48,7 @@ const capabilities: CapabilityCard[] = [
     description: "Stack recommendations, API design, and database schema.",
     gradient: "from-emerald-500/10 to-teal-500/10",
     iconBg: "from-emerald-500 to-teal-500",
+    learnMoreLink: "/app?feature=tech-architecture"
   },
   {
     icon: TrendingUp,
@@ -51,7 +56,8 @@ const capabilities: CapabilityCard[] = [
     description: "10-dimensional analysis covering feasibility, timing, competition, and market fit with actionable insights.",
     gradient: "from-amber-500/10 to-orange-500/10",
     iconBg: "from-amber-500 to-orange-500",
-    size: 'wide'
+    size: 'wide',
+    learnMoreLink: "/app?feature=viability-scoring"
   },
   {
     icon: Rocket,
@@ -59,6 +65,7 @@ const capabilities: CapabilityCard[] = [
     description: "Sprint-by-sprint plan with milestones and KPIs.",
     gradient: "from-rose-500/10 to-red-500/10",
     iconBg: "from-rose-500 to-red-500",
+    learnMoreLink: "/app?feature=execution-roadmap"
   },
   {
     icon: FileText,
@@ -66,6 +73,7 @@ const capabilities: CapabilityCard[] = [
     description: "VC-ready and founder voice pitches that resonate.",
     gradient: "from-indigo-500/10 to-violet-500/10",
     iconBg: "from-indigo-500 to-violet-500",
+    learnMoreLink: "/app?feature=pitch-scripts"
   },
   {
     icon: PieChart,
@@ -73,7 +81,8 @@ const capabilities: CapabilityCard[] = [
     description: "Revenue projections, unit economics, and pricing strategy tailored to your business model.",
     gradient: "from-cyan-500/10 to-blue-500/10",
     iconBg: "from-cyan-500 to-blue-500",
-    size: 'large'
+    size: 'large',
+    learnMoreLink: "/app?feature=financial-model"
   },
 ];
 
@@ -185,11 +194,10 @@ const Capabilities: React.FC = () => {
                     {/* Spacer for consistent layout */}
                     <div className="flex-1" />
 
-                    {/* Hover indicator */}
-                    <motion.div
-                      className="mt-6 flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity"
-                      initial={{ x: -10 }}
-                      whileHover={{ x: 0 }}
+                    {/* Learn more link */}
+                    <Link 
+                      to={capability.learnMoreLink}
+                      className="mt-6 flex items-center gap-2 text-sm font-medium text-brand-600 dark:text-brand-400 opacity-0 group-hover:opacity-100 transition-all hover:gap-3"
                     >
                       <span>Learn more</span>
                       <motion.span
@@ -198,7 +206,7 @@ const Capabilities: React.FC = () => {
                       >
                         →
                       </motion.span>
-                    </motion.div>
+                    </Link>
                   </div>
                 </div>
               </motion.div>

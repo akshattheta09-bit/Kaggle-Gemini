@@ -1,12 +1,13 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import img1 from '../../assets/Gemini_Generated_Image_1jedny1jedny1jed.png';
 import img2 from '../../assets/Gemini_Generated_Image_1o67fz1o67fz1o67.png';
 import img3 from '../../assets/Gemini_Generated_Image_94648j94648j9464.png';
 import img4 from '../../assets/Gemini_Generated_Image_ejg48gejg48gejg4.png';
 import img5 from '../../assets/Gemini_Generated_Image_k8lls7k8lls7k8ll.png';
 import img6 from '../../assets/Gemini_Generated_Image_kft5s5kft5s5kft5.png';
-import { Target, Code, Activity, Box, Map, Mic } from 'lucide-react';
+import { Target, Code, Activity, Box, Map, Mic, ArrowRight } from 'lucide-react';
 
 /**
  * ShowcaseParallax Component - Apple Level Premium Design
@@ -27,6 +28,7 @@ interface ShowcaseItem {
   thumbnail: string;
   icon: React.ReactNode;
   gradient: string;
+  link: string;
 }
 
 const showcaseItems: ShowcaseItem[] = [
@@ -37,7 +39,8 @@ const showcaseItems: ShowcaseItem[] = [
     detailedDescription: "Positioning, moat, TAM, and competitive map grounded in first-principles reasoning.",
     thumbnail: img1,
     icon: <Target className="w-5 h-5" />,
-    gradient: "from-blue-500 to-cyan-500"
+    gradient: "from-blue-500 to-cyan-500",
+    link: "/app?feature=market-strategy"
   },
   {
     title: "Technical Scaffolding",
@@ -46,7 +49,8 @@ const showcaseItems: ShowcaseItem[] = [
     detailedDescription: "Architecture, API design, data model, and repo structure—ready for handoff to engineers.",
     thumbnail: img2,
     icon: <Code className="w-5 h-5" />,
-    gradient: "from-violet-500 to-purple-500"
+    gradient: "from-violet-500 to-purple-500",
+    link: "/app?feature=product-design"
   },
   {
     title: "Viability Scoring",
@@ -55,7 +59,8 @@ const showcaseItems: ShowcaseItem[] = [
     detailedDescription: "Multi-dimensional scoring across feasibility, timing, revenue potential, risk, and resourcing.",
     thumbnail: img3,
     icon: <Activity className="w-5 h-5" />,
-    gradient: "from-emerald-500 to-teal-500"
+    gradient: "from-emerald-500 to-teal-500",
+    link: "/app?feature=tech-architecture"
   },
   {
     title: "Product Definition",
@@ -64,7 +69,8 @@ const showcaseItems: ShowcaseItem[] = [
     detailedDescription: "User journeys, feature sequencing, acceptance criteria, and crisp release notes.",
     thumbnail: img4,
     icon: <Box className="w-5 h-5" />,
-    gradient: "from-orange-500 to-amber-500"
+    gradient: "from-orange-500 to-amber-500",
+    link: "/app?feature=viability-scoring"
   },
   {
     title: "Execution Roadmap",
@@ -73,7 +79,8 @@ const showcaseItems: ShowcaseItem[] = [
     detailedDescription: "Week-by-week sprints with owners, milestones, and success metrics.",
     thumbnail: img5,
     icon: <Map className="w-5 h-5" />,
-    gradient: "from-pink-500 to-rose-500"
+    gradient: "from-pink-500 to-rose-500",
+    link: "/app?feature=execution-roadmap"
   },
   {
     title: "Pitch & Narrative",
@@ -82,7 +89,8 @@ const showcaseItems: ShowcaseItem[] = [
     detailedDescription: "Investor and founder voice scripts plus a one-slide story spine.",
     thumbnail: img6,
     icon: <Mic className="w-5 h-5" />,
-    gradient: "from-indigo-500 to-blue-500"
+    gradient: "from-indigo-500 to-blue-500",
+    link: "/app?feature=pitch-scripts"
   }
 ];
 
@@ -215,12 +223,12 @@ const ShowcaseCard: React.FC<ShowcaseCardProps> = ({ item, translate }) => {
       }}
       className="group/product w-[30rem] relative flex-shrink-0"
     >
-      <div className="space-y-0">
+      <Link to={item.link} className="block space-y-0">
         {/* Premium Card with Glass Effect */}
-        <div className="relative z-20 p-6 bg-white/[0.03] backdrop-blur-xl rounded-3xl border border-white/[0.08] overflow-hidden transition-all duration-500 group-hover/product:bg-white/[0.06] group-hover/product:border-white/[0.12]">
+        <div className="relative z-20 p-6 bg-white/[0.03] backdrop-blur-xl rounded-3xl border border-white/[0.08] overflow-hidden transition-all duration-500 group-hover/product:bg-white/[0.06] group-hover/product:border-white/[0.12] group-hover/product:shadow-2xl">
           
           {/* Gradient glow on hover */}
-          <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover/product:opacity-5 transition-opacity duration-500`} />
+          <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover/product:opacity-10 transition-opacity duration-500`} />
           
           {/* Icon Badge */}
           <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center mb-4 text-white shadow-lg`}>
@@ -250,8 +258,17 @@ const ShowcaseCard: React.FC<ShowcaseCardProps> = ({ item, translate }) => {
             {/* Gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-gray-950/60 via-transparent to-transparent" />
           </div>
+
+          {/* Learn more link */}
+          <div className="mt-4 flex items-center justify-between">
+            <span className="text-sm font-medium text-brand-400 group-hover/product:text-brand-300 transition-colors flex items-center gap-2">
+              Learn more
+              <ArrowRight className="w-4 h-4 transform group-hover/product:translate-x-1 transition-transform" />
+            </span>
+            <span className="text-xs text-gray-600">{item.shortTitle}</span>
+          </div>
         </div>
-      </div>
+      </Link>
     </motion.div>
   );
 };
