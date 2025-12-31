@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Lock, Eye, EyeOff, ArrowRight, Sparkles, AlertCircle, Check } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowRight, AlertCircle, Check } from 'lucide-react';
 import { useAuth } from '../lib/authContext';
+import logoSvg from '../assets/logo.svg';
 
 const SignInPage: React.FC = () => {
   const navigate = useNavigate();
@@ -56,9 +57,7 @@ const SignInPage: React.FC = () => {
         <div className="w-full max-w-md mx-auto">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 mb-12">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" />
-            </div>
+            <img src={logoSvg} alt="AutoFounder" className="w-10 h-10" />
             <span className="text-lg font-bold text-gray-900 dark:text-white">AutoFounder</span>
           </Link>
 
@@ -241,7 +240,7 @@ const SignInPage: React.FC = () => {
             transition={{ delay: 0.3 }}
           >
             <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-8 mx-auto">
-              <Sparkles className="w-10 h-10 text-white" />
+              <img src={logoSvg} alt="AutoFounder" className="w-12 h-12" />
             </div>
             <h2 className="text-3xl font-bold text-white mb-4">
               Build your startup blueprint

@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { PenLine, Brain, Download, Rocket, ArrowRight, CheckCircle } from 'lucide-react';
 
 interface WorkflowStep {
@@ -199,13 +200,15 @@ const Workflow: React.FC = () => {
           <p className="text-gray-500 dark:text-gray-400 mb-6">
             Average time from idea to blueprint: <span className="font-semibold text-gray-900 dark:text-white">2 minutes</span>
           </p>
-          <motion.button
-            className="inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 font-semibold hover:gap-3 transition-all"
-            whileHover={{ x: 5 }}
-          >
-            Start building now
-            <ArrowRight className="w-4 h-4" />
-          </motion.button>
+          <Link to="/app">
+            <motion.button
+              className="inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 font-semibold hover:gap-3 transition-all"
+              whileHover={{ x: 5 }}
+            >
+              Start building now
+              <ArrowRight className="w-4 h-4" />
+            </motion.button>
+          </Link>
         </motion.div>
       </div>
     </section>

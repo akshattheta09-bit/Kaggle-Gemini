@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { AuthProvider } from './lib/authContext';
 import { HistoryProvider, useHistory } from './lib/historyContext';
+import ScrollToTop from './components/ScrollToTop';
 import Sidebar from './components/Sidebar';
 import ContentArea from './components/ContentArea';
 import LoadingOverlay from './components/LoadingOverlay';
@@ -28,6 +29,11 @@ const StatusPage = lazy(() => import('./pages/StatusPage'));
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 const TermsPage = lazy(() => import('./pages/TermsPage'));
 const CookiePage = lazy(() => import('./pages/CookiePage'));
+const APIQuickstartPage = lazy(() => import('./pages/docs/APIQuickstartPage'));
+const AuthenticationPage = lazy(() => import('./pages/docs/AuthenticationPage'));
+const SDKsPage = lazy(() => import('./pages/docs/SDKsPage'));
+const ChangelogPage = lazy(() => import('./pages/docs/ChangelogPage'));
+const SupportPage = lazy(() => import('./pages/SupportPage'));
 const SecurityPage = lazy(() => import('./pages/SecurityPage'));
 const SignInPage = lazy(() => import('./pages/SignInPage'));
 const SignUpPage = lazy(() => import('./pages/SignUpPage'));
@@ -156,46 +162,54 @@ const AppRoutes: React.FC = () => {
   const navigate = useNavigate();
   
   return (
-    <Suspense fallback={<PageLoader />}>
-      <Routes>
-        {/* Landing page */}
-        <Route path="/" element={<LandingPage onGetStarted={() => navigate('/app')} />} />
-        
-        {/* Main app workspace */}
-        <Route path="/app" element={<AppWorkspace />} />
-        
-        {/* Auth pages */}
-        <Route path="/signin" element={<SignInPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        
-        {/* Marketing pages */}
-        <Route path="/features" element={<MarketingLayout><FeaturesPage /></MarketingLayout>} />
-        <Route path="/how-it-works" element={<MarketingLayout><HowItWorksPage /></MarketingLayout>} />
-        <Route path="/pricing" element={<MarketingLayout><PricingPage /></MarketingLayout>} />
-        <Route path="/api" element={<MarketingLayout><APIPage /></MarketingLayout>} />
-        
-        {/* Company pages */}
-        <Route path="/about" element={<MarketingLayout><AboutPage /></MarketingLayout>} />
-        <Route path="/blog" element={<MarketingLayout><BlogPage /></MarketingLayout>} />
-        <Route path="/careers" element={<MarketingLayout><CareersPage /></MarketingLayout>} />
-        <Route path="/contact" element={<MarketingLayout><ContactPage /></MarketingLayout>} />
-        
-        {/* Support pages */}
-        <Route path="/docs" element={<MarketingLayout><DocsPage /></MarketingLayout>} />
-        <Route path="/help" element={<MarketingLayout><HelpCenterPage /></MarketingLayout>} />
-        <Route path="/community" element={<MarketingLayout><CommunityPage /></MarketingLayout>} />
-        <Route path="/status" element={<MarketingLayout><StatusPage /></MarketingLayout>} />
-        
-        {/* Legal pages */}
-        <Route path="/privacy" element={<MarketingLayout><PrivacyPage /></MarketingLayout>} />
-        <Route path="/terms" element={<MarketingLayout><TermsPage /></MarketingLayout>} />
-        <Route path="/cookies" element={<MarketingLayout><CookiePage /></MarketingLayout>} />
-        <Route path="/security" element={<MarketingLayout><SecurityPage /></MarketingLayout>} />
-        
-        {/* Catch all - redirect to home */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </Suspense>
+    <>
+      <ScrollToTop />
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          {/* Landing page */}
+          <Route path="/" element={<LandingPage onGetStarted={() => navigate('/app')} />} />
+          
+          {/* Main app workspace */}
+          <Route path="/app" element={<AppWorkspace />} />
+          
+          {/* Auth pages */}
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          
+          {/* Marketing pages */}
+          <Route path="/features" element={<MarketingLayout><FeaturesPage /></MarketingLayout>} />
+          <Route path="/how-it-works" element={<MarketingLayout><HowItWorksPage /></MarketingLayout>} />
+          <Route path="/pricing" element={<MarketingLayout><PricingPage /></MarketingLayout>} />
+          <Route path="/api" element={<MarketingLayout><APIPage /></MarketingLayout>} />
+          
+          {/* Company pages */}
+          <Route path="/about" element={<MarketingLayout><AboutPage /></MarketingLayout>} />
+          <Route path="/blog" element={<MarketingLayout><BlogPage /></MarketingLayout>} />
+          <Route path="/careers" element={<MarketingLayout><CareersPage /></MarketingLayout>} />
+          <Route path="/contact" element={<MarketingLayout><ContactPage /></MarketingLayout>} />
+          
+          {/* Support pages */}
+          <Route path="/docs" element={<MarketingLayout><DocsPage /></MarketingLayout>} />
+          <Route path="/docs/quickstart" element={<MarketingLayout><APIQuickstartPage /></MarketingLayout>} />
+          <Route path="/docs/authentication" element={<MarketingLayout><AuthenticationPage /></MarketingLayout>} />
+          <Route path="/docs/sdks" element={<MarketingLayout><SDKsPage /></MarketingLayout>} />
+          <Route path="/docs/changelog" element={<MarketingLayout><ChangelogPage /></MarketingLayout>} />
+          <Route path="/help" element={<MarketingLayout><HelpCenterPage /></MarketingLayout>} />
+          <Route path="/support" element={<MarketingLayout><SupportPage /></MarketingLayout>} />
+          <Route path="/community" element={<MarketingLayout><CommunityPage /></MarketingLayout>} />
+          <Route path="/status" element={<MarketingLayout><StatusPage /></MarketingLayout>} />
+          
+          {/* Legal pages */}
+          <Route path="/privacy" element={<MarketingLayout><PrivacyPage /></MarketingLayout>} />
+          <Route path="/terms" element={<MarketingLayout><TermsPage /></MarketingLayout>} />
+          <Route path="/cookies" element={<MarketingLayout><CookiePage /></MarketingLayout>} />
+          <Route path="/security" element={<MarketingLayout><SecurityPage /></MarketingLayout>} />
+          
+          {/* Catch all - redirect to home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
+    </>
   );
 };
 

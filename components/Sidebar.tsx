@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Sector } from '../types';
-import { Sparkles, ChevronRight, RefreshCw, Trash2, Moon, Sun, ChevronDown, Zap } from 'lucide-react';
+import { ChevronRight, RefreshCw, Trash2, Moon, Sun, ChevronDown, Zap } from 'lucide-react';
+import logoSvg from '../assets/logo.svg';
 
 interface SidebarProps {
   onGenerate: (idea: string, sector: Sector) => void;
@@ -73,9 +74,11 @@ const Sidebar: React.FC<SidebarProps> = ({ onGenerate, isGenerating, isDarkMode,
         <div className="flex justify-between items-start">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center shadow-lg shadow-brand-500/20">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
+              <img 
+                src={logoSvg} 
+                alt="AutoFounder Logo" 
+                className="w-10 h-10 drop-shadow-lg"
+              />
               <div>
                 <h1 className="text-lg font-bold text-gray-900 dark:text-white tracking-tight">AutoFounder</h1>
                 <p className="text-xs text-gray-500 dark:text-gray-400">AI Startup Studio</p>

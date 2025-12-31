@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { 
   Book, Code, Terminal, FileText, ChevronRight, Search,
   Zap, Shield, Webhook, Key, Download, Settings, ArrowRight
@@ -79,10 +80,10 @@ const sections = [
 ];
 
 const quickLinks = [
-  { icon: Terminal, label: 'API Quickstart', href: '#api' },
-  { icon: Key, label: 'Authentication', href: '#auth' },
-  { icon: Download, label: 'SDKs & Libraries', href: '#sdks' },
-  { icon: FileText, label: 'Changelog', href: '#changelog' }
+  { icon: Terminal, label: 'API Quickstart', href: '/docs/quickstart' },
+  { icon: Key, label: 'Authentication', href: '/docs/authentication' },
+  { icon: Download, label: 'SDKs & Libraries', href: '/docs/sdks' },
+  { icon: FileText, label: 'Changelog', href: '/docs/changelog' }
 ];
 
 const DocsPage: React.FC<DocsPageProps> = ({ onNavigate }) => {
@@ -148,14 +149,14 @@ const DocsPage: React.FC<DocsPageProps> = ({ onNavigate }) => {
             {quickLinks.map((link) => {
               const Icon = link.icon;
               return (
-                <a
+                <Link
                   key={link.label}
-                  href={link.href}
+                  to={link.href}
                   className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-sm font-medium"
                 >
                   <Icon className="w-4 h-4" />
                   {link.label}
-                </a>
+                </Link>
               );
             })}
           </div>
@@ -271,13 +272,17 @@ const pdf = await client.blueprints.export(blueprint.id, {
             Our team is here to help you succeed. Reach out anytime.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <button className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:opacity-90 transition-all shadow-lg">
-              Contact Support
-              <ArrowRight className="w-5 h-5" />
-            </button>
-            <button className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">
-              Join Discord
-            </button>
+            <Link to="/support">
+              <button className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:opacity-90 transition-all shadow-lg">
+                Contact Support
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </Link>
+            <Link to="/community">
+              <button className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">
+                Join Community
+              </button>
+            </Link>
           </div>
         </div>
       </section>

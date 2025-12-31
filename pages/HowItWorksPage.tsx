@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles, PenLine, Brain, Download, Rocket, CheckCircle2 } from 'lucide-react';
 
 interface HowItWorksPageProps {
@@ -202,13 +203,14 @@ const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onGetStarted }) => {
           <p className="text-gray-600 dark:text-gray-400 mb-8">
             Join thousands of founders who've accelerated their journey with AutoFounder.
           </p>
-          <button
-            onClick={onGetStarted}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:opacity-90 transition-all shadow-lg"
-          >
-            Generate Your Blueprint
-            <ArrowRight className="w-5 h-5" />
-          </button>
+          <Link to="/app">
+            <button
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:opacity-90 transition-all shadow-lg"
+            >
+              Generate Your Blueprint
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          </Link>
         </div>
       </section>
     </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles, Check } from 'lucide-react';
 
 interface FinalCTAProps {
@@ -148,21 +149,22 @@ const FinalCTA: React.FC<FinalCTAProps> = ({ onGetStarted }) => {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-brand-100 to-purple-100"
+              className="absolute inset-0 bg-gradient-to-r from-brand-100 to-cyan-100"
               initial={{ opacity: 0 }}
               whileHover={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
             />
           </motion.button>
 
-          <motion.button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="px-10 py-4 rounded-full text-base font-semibold text-white/90 border border-white/20 hover:bg-white/10 transition-colors"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Learn more
-          </motion.button>
+          <Link to="/how-it-works">
+            <motion.button
+              className="px-10 py-4 rounded-full text-base font-semibold text-white/90 border border-white/20 hover:bg-white/10 transition-colors"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Learn more
+            </motion.button>
+          </Link>
         </motion.div>
 
         {/* Trust line */}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { 
   Sparkles, Target, Layers, Code, DollarSign, Activity, 
   Map, Mic, FileText, Palette, CheckCircle2, ArrowRight,
@@ -140,16 +141,17 @@ const FeaturesPage: React.FC<FeaturesPageProps> = ({ onGetStarted }) => {
             From market analysis to investor pitch—11 interconnected views that transform your idea into a fundable business plan.
           </motion.p>
 
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            onClick={onGetStarted}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:opacity-90 transition-all shadow-lg"
-          >
-            Start Building
-            <ArrowRight className="w-5 h-5" />
-          </motion.button>
+          <Link to="/app">
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:opacity-90 transition-all shadow-lg"
+            >
+              Start Building
+              <ArrowRight className="w-5 h-5" />
+            </motion.button>
+          </Link>
         </div>
       </section>
 
@@ -233,13 +235,14 @@ const FeaturesPage: React.FC<FeaturesPageProps> = ({ onGetStarted }) => {
           <p className="text-gray-600 dark:text-gray-400 mb-8">
             Generate your first blueprint in under 3 minutes—no credit card required.
           </p>
-          <button
-            onClick={onGetStarted}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:opacity-90 transition-all shadow-lg"
-          >
-            Generate Your Blueprint
-            <ArrowRight className="w-5 h-5" />
-          </button>
+          <Link to="/app">
+            <button
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:opacity-90 transition-all shadow-lg"
+            >
+              Generate Your Blueprint
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          </Link>
         </div>
       </section>
     </div>

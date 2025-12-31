@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Sparkles, Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
+import logoSvg from '../../assets/logo.svg';
 
 interface NavigationProps {
   onGetStarted: () => void;
@@ -79,13 +80,15 @@ const Navigation: React.FC<NavigationProps> = ({ onGetStarted }) => {
             >
               <motion.div 
                 className="relative"
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-500 to-brand-600 rounded-xl blur-lg opacity-40 group-hover:opacity-60 transition-opacity" />
-                <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center shadow-lg">
-                  <Sparkles className="w-5 h-5 text-white" />
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-400 to-brand-500 rounded-xl blur-lg opacity-40 group-hover:opacity-60 transition-opacity" />
+                <img 
+                  src={logoSvg} 
+                  alt="AutoFounder Logo" 
+                  className="relative w-10 h-10 drop-shadow-lg"
+                />
               </motion.div>
               <span className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
                 AutoFounder

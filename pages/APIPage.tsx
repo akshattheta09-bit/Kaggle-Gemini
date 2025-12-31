@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { 
   ArrowRight, Code, Copy, Check, Terminal, Zap, Shield, 
   Key, Webhook, FileJson, Clock, Globe
@@ -144,13 +145,14 @@ const APIPage: React.FC<APIPageProps> = ({ onGetStarted }) => {
             transition={{ delay: 0.3 }}
             className="flex flex-wrap justify-center gap-4"
           >
-            <button
-              onClick={onGetStarted}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:opacity-90 transition-all shadow-lg"
-            >
-              Get API Keys
-              <Key className="w-5 h-5" />
-            </button>
+            <Link to="/app">
+              <button
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:opacity-90 transition-all shadow-lg"
+              >
+                Get API Keys
+                <Key className="w-5 h-5" />
+              </button>
+            </Link>
             <a
               href="#endpoints"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
@@ -306,13 +308,14 @@ const APIPage: React.FC<APIPageProps> = ({ onGetStarted }) => {
           <p className="text-gray-600 dark:text-gray-400 mb-8">
             Get your API keys and start building in minutes.
           </p>
-          <button
-            onClick={onGetStarted}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:opacity-90 transition-all shadow-lg"
-          >
-            Get Started
-            <ArrowRight className="w-5 h-5" />
-          </button>
+          <Link to="/app">
+            <button
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:opacity-90 transition-all shadow-lg"
+            >
+              Get Started
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          </Link>
         </div>
       </section>
     </div>

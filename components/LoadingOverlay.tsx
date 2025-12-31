@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Sparkles, Check, Loader2 } from 'lucide-react';
+import { Check, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import logoSvg from '../assets/logo.svg';
 
 interface LoadingOverlayProps {
   isLoading: boolean;
@@ -83,11 +84,15 @@ const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ isLoading }) => {
           {/* Logo & Header */}
           <div className="text-center mb-8">
             <motion.div 
-              className="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center shadow-glow"
+              className="w-16 h-16 mx-auto mb-5 flex items-center justify-center"
               animate={{ rotate: [0, 5, -5, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             >
-              <Sparkles className="w-8 h-8 text-white" />
+              <img 
+                src={logoSvg} 
+                alt="AutoFounder Logo" 
+                className="w-16 h-16 drop-shadow-glow"
+              />
             </motion.div>
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
               Building Your Blueprint

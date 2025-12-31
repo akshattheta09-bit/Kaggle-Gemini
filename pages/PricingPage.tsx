@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Check, Sparkles, Zap, Shield, Building2 } from 'lucide-react';
 
 interface PricingPageProps {
@@ -185,16 +186,17 @@ const PricingPage: React.FC<PricingPageProps> = ({ onSelectPlan }) => {
                   ))}
                 </ul>
 
-                <button
-                  onClick={() => onSelectPlan?.(plan.name)}
-                  className={`w-full py-3 px-4 rounded-xl font-semibold transition-all ${
-                    plan.highlight
-                      ? 'bg-brand-500 hover:bg-brand-600 text-white'
-                      : 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white'
-                  }`}
-                >
-                  {plan.cta}
-                </button>
+                <Link to="/app">
+                  <button
+                    className={`w-full py-3 px-4 rounded-xl font-semibold transition-all ${
+                      plan.highlight
+                        ? 'bg-brand-500 hover:bg-brand-600 text-white'
+                        : 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white'
+                    }`}
+                  >
+                    {plan.cta}
+                  </button>
+                </Link>
               </motion.div>
             );
           })}

@@ -120,14 +120,14 @@ const ShowcaseParallax: React.FC = () => {
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
+    useTransform(scrollYProgress, [0, 0.2], [0, 200]),
     springConfig
   );
 
   return (
     <div
       ref={ref}
-      className="h-[240vh] py-32 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-gray-950"
+      className="h-[180vh] py-20 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-gray-950"
     >
       {/* Background gradient orbs */}
       <div className="absolute inset-0 overflow-hidden">
@@ -136,7 +136,7 @@ const ShowcaseParallax: React.FC = () => {
       </div>
 
       {/* Header */}
-      <div className="max-w-6xl relative mx-auto py-24 md:py-40 px-6 md:px-8 w-full left-0 top-0">
+      <div className="max-w-6xl relative mx-auto py-16 md:py-24 px-6 md:px-8 w-full left-0 top-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

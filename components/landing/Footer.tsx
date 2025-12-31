@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Sparkles, Github, Twitter, Linkedin, Mail } from 'lucide-react';
+import { Github, Twitter, Linkedin, Mail } from 'lucide-react';
+import logoSvg from '../../assets/logo.svg';
 
 /**
  * Footer Component - Apple-Level Premium Design
@@ -63,9 +64,11 @@ const Footer: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center">
-                <Sparkles className="w-4.5 h-4.5 text-white" />
-              </div>
+              <img 
+                src={logoSvg} 
+                alt="AutoFounder Logo" 
+                className="w-9 h-9"
+              />
               <span className="text-lg font-bold text-gray-900 dark:text-white">
                 AutoFounder
               </span>
