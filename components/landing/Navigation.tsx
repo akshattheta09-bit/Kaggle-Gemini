@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Sparkles, Menu, X, ArrowRight } from 'lucide-react';
 
 interface NavigationProps {
@@ -19,6 +20,9 @@ interface NavigationProps {
 const Navigation: React.FC<NavigationProps> = ({ onGetStarted }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isLandingPage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,9 +43,10 @@ const Navigation: React.FC<NavigationProps> = ({ onGetStarted }) => {
   }, []);
 
   const navLinks = [
-    { label: 'Features', href: '#features' },
-    { label: 'How it works', href: '#workflow' },
-    { label: 'About', href: '#philosophy' },
+    { label: 'Features', href: '/features' },
+    { label: 'How it works', href: '/how-it-works' },
+    { label: 'Pricing', href: '/pricing' },
+    { label: 'Docs', href: '/docs' },
   ];
 
   return (
@@ -68,40 +73,55 @@ const Navigation: React.FC<NavigationProps> = ({ onGetStarted }) => {
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <motion.button 
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            <Link 
+              to="/"
               className="flex items-center gap-3 group focus-ring rounded-xl"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
             >
-              <div className="relative">
+              <motion.div 
+                className="relative"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 <div className="absolute inset-0 bg-gradient-to-br from-brand-500 to-brand-600 rounded-xl blur-lg opacity-40 group-hover:opacity-60 transition-opacity" />
                 <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center shadow-lg">
                   <Sparkles className="w-5 h-5 text-white" />
                 </div>
-              </div>
+              </motion.div>
               <span className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
                 AutoFounder
               </span>
-            </motion.button>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-1">
               {navLinks.map((link) => (
-                <motion.a
+                <Link
                   key={link.label}
-                  href={link.href}
-                  className="px-4 py-2 text-[15px] font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-full transition-colors focus-ring"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  to={link.href}
+                  className={`px-4 py-2 text-[15px] font-medium rounded-full transition-colors focus-ring ${
+                    location.pathname === link.href
+                      ? 'text-brand-600 dark:text-brand-400'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                  }`}
                 >
-                  {link.label}
-                </motion.a>
+                  <motion.span
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {link.label}
+                  </motion.span>
+                </Link>
               ))}
             </div>
 
-            {/* CTA Button - Desktop */}
-            <div className="hidden md:flex items-center gap-4">
+            {/* CTA Buttons - Desktop */}
+            <div className="hidden md:flex items-center gap-3">
+              <Link
+                to="/signin"
+                className="px-4 py-2 text-[15px] font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-full transition-colors"
+              >
+                Sign in
+              </Link>
               <motion.button
                 onClick={onGetStarted}
                 className="group relative px-6 py-2.5 rounded-full text-[15px] font-semibold text-white bg-gray-900 dark:bg-white dark:text-gray-900 overflow-hidden focus-ring"
@@ -170,18 +190,41 @@ const Navigation: React.FC<NavigationProps> = ({ onGetStarted }) => {
                 {/* Links */}
                 <div className="flex-1 flex flex-col gap-2">
                   {navLinks.map((link, index) => (
-                    <motion.a
+                    <motion.div
                       key={link.label}
-                      href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="px-4 py-3 text-lg font-medium text-gray-900 dark:text-white rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
                     >
-                      {link.label}
-                    </motion.a>
+                      <Link
+                        to={link.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`block px-4 py-3 text-lg font-medium rounded-xl transition-colors ${
+                          location.pathname === link.href
+                            ? 'text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/20'
+                            : 'text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10'
+                        }`}
+                      >
+                        {link.label}
+                      </Link>
+                    </motion.div>
                   ))}
+                  
+                  <div className="border-t border-gray-200 dark:border-gray-800 my-4" />
+                  
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <Link
+                      to="/signin"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block px-4 py-3 text-lg font-medium text-gray-900 dark:text-white rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                    >
+                      Sign in
+                    </Link>
+                  </motion.div>
                 </div>
 
                 {/* CTA */}
@@ -193,7 +236,7 @@ const Navigation: React.FC<NavigationProps> = ({ onGetStarted }) => {
                   className="w-full py-4 rounded-2xl text-base font-semibold text-white bg-gray-900 dark:bg-white dark:text-gray-900"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
+                  transition={{ delay: 0.5 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   Get started free

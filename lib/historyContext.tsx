@@ -122,9 +122,12 @@ export const HistoryProvider: React.FC<{ children: ReactNode }> = ({ children })
     const id = `blueprint_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     const now = new Date();
     
+    // Extract name from assets or use default
+    const planName = plan.assets?.brandNames?.[0] || `Blueprint ${state.items.length + 1}`;
+    
     const newItem: HistoryItem = {
       id,
-      title: plan.startupConcept?.proposedStartupName || `Blueprint ${state.items.length + 1}`,
+      title: planName,
       idea,
       sector,
       plan,

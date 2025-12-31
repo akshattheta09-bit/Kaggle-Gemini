@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Sparkles, Github, Twitter, Linkedin, Mail } from 'lucide-react';
 
@@ -16,28 +17,28 @@ const Footer: React.FC = () => {
 
   const footerLinks = {
     product: [
-      { label: 'Features', href: '#features' },
-      { label: 'How it works', href: '#workflow' },
-      { label: 'Pricing', href: '#' },
-      { label: 'API', href: '#' }
+      { label: 'Features', href: '/features' },
+      { label: 'How it works', href: '/how-it-works' },
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'API', href: '/api' }
     ],
     company: [
-      { label: 'About', href: '#philosophy' },
-      { label: 'Blog', href: '#' },
-      { label: 'Careers', href: '#' },
-      { label: 'Contact', href: '#' }
+      { label: 'About', href: '/about' },
+      { label: 'Blog', href: '/blog' },
+      { label: 'Careers', href: '/careers' },
+      { label: 'Contact', href: '/contact' }
     ],
     resources: [
-      { label: 'Documentation', href: '#' },
-      { label: 'Help Center', href: '#' },
-      { label: 'Community', href: '#' },
-      { label: 'Status', href: '#' }
+      { label: 'Documentation', href: '/docs' },
+      { label: 'Help Center', href: '/help' },
+      { label: 'Community', href: '/community' },
+      { label: 'Status', href: '/status' }
     ],
     legal: [
-      { label: 'Privacy Policy', href: '#' },
-      { label: 'Terms of Service', href: '#' },
-      { label: 'Cookie Policy', href: '#' },
-      { label: 'Security', href: '#' }
+      { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Terms of Service', href: '/terms' },
+      { label: 'Cookie Policy', href: '/cookies' },
+      { label: 'Security', href: '/security' }
     ]
   };
 
@@ -101,12 +102,12 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               {footerLinks.product.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -120,12 +121,12 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -139,12 +140,12 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               {footerLinks.resources.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -158,12 +159,12 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
