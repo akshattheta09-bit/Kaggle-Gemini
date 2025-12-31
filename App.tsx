@@ -93,7 +93,10 @@ const App: React.FC = () => {
       {showLanding ? (
         <LandingPage onGetStarted={() => setShowLanding(false)} />
       ) : (
-        <div className="flex h-screen w-screen bg-slate-50 dark:bg-slate-950 overflow-hidden text-slate-900 dark:text-slate-100 font-sans relative transition-colors duration-200">
+        <div className="flex h-screen w-screen bg-gray-50 dark:bg-gray-950 overflow-hidden text-gray-900 dark:text-gray-100 font-sans relative transition-colors duration-300">
+          {/* Subtle background gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-50/30 via-transparent to-purple-50/20 dark:from-brand-950/20 dark:via-transparent dark:to-purple-950/10 pointer-events-none" />
+          
           {/* Global Loading Overlay */}
           <LoadingOverlay isLoading={isGenerating} />
 

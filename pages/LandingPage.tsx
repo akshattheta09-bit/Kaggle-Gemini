@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import Navigation from '../components/landing/Navigation';
 import AnimatedHero from '../components/landing/AnimatedHero';
 import Capabilities from '../components/landing/Capabilities';
@@ -10,17 +9,14 @@ import FinalCTA from '../components/landing/FinalCTA';
 import Footer from '../components/landing/Footer';
 
 /**
- * LandingPage Component
+ * LandingPage Component - Apple Level Premium Design
  * 
- * Premium landing experience for AutoFounder with animated hero.
- * Features blue gradient accents and professional design.
- * 
- * Architecture:
- * - Modular, reusable components
- * - Smooth scroll animations via Framer Motion
- * - Animated marquee hero section
- * - Blue brand color throughout
- * - Professional card designs
+ * A stunning, VC-ready landing experience featuring:
+ * - Smooth scroll animations
+ * - Premium glassmorphism effects
+ * - 3D parallax showcase
+ * - Trust-building social proof
+ * - Clean, minimal typography
  */
 interface LandingPageProps {
   onGetStarted: () => void;
@@ -28,29 +24,29 @@ interface LandingPageProps {
 
 const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
   return (
-    <div className="min-h-screen bg-white dark:bg-black text-slate-900 dark:text-slate-100">
-      {/* Fixed Navigation */}
+    <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased">
+      {/* Fixed Navigation with Glassmorphism */}
       <Navigation onGetStarted={onGetStarted} />
 
-      {/* Animated Hero Section with Marquee */}
+      {/* Animated Hero Section */}
       <AnimatedHero onGetStarted={onGetStarted} />
 
-      {/* Capabilities Section */}
+      {/* Capabilities Bento Grid */}
       <Capabilities />
 
-      {/* Showcase Parallax Section */}
+      {/* 3D Parallax Showcase */}
       <ShowcaseParallax />
 
-      {/* Workflow Section */}
+      {/* Process Workflow Timeline */}
       <Workflow />
 
-      {/* Philosophy Section */}
+      {/* Trust & Philosophy Section */}
       <Philosophy />
 
-      {/* Final CTA Section */}
+      {/* Conversion CTA Section */}
       <FinalCTA onGetStarted={onGetStarted} />
 
-      {/* Footer */}
+      {/* Minimal Footer */}
       <Footer />
     </div>
   );

@@ -111,7 +111,8 @@ const ValidationTab: React.FC<ValidationTabProps> = ({
                 Which Assumption?
               </label>
               <select
-                aria-label="Which Assumption?\"\n                value={selectedAssumptionId}
+                aria-label="Which Assumption?"
+                value={selectedAssumptionId}
                 onChange={(e) => setSelectedAssumptionId(e.target.value)}
                 className="w-full px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >

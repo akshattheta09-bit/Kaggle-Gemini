@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface SectionCardProps {
   title: string;
@@ -9,30 +10,49 @@ interface SectionCardProps {
 }
 
 /**
- * SectionCard Component
+ * SectionCard Component - Apple-Level Premium Design
  * 
- * A consistent card wrapper for different sections of the plan.
- * Uses a refined border and subtle shadow for a "premium" feel.
+ * Features:
+ * - Elegant glassmorphism effect
+ * - Smooth hover transitions
+ * - Clean typography hierarchy
+ * - Subtle gradient borders
  */
 const SectionCard: React.FC<SectionCardProps> = ({ title, icon, children, className = '', noPadding = false }) => (
-  <div className={`
-    bg-white dark:bg-slate-900 
-    rounded-xl 
-    shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none
-    border border-slate-200/60 dark:border-slate-800 
-    overflow-hidden 
-    transition-all duration-200 
-    hover:border-slate-300 dark:hover:border-slate-700
-    ${className}
-  `}>
-    <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3 bg-white dark:bg-slate-900">
-      {icon && <div className="text-slate-500 dark:text-slate-400">{icon}</div>}
-      <h3 className="font-semibold text-slate-800 dark:text-slate-100 tracking-tight text-[15px]">{title}</h3>
+  <motion.div 
+    initial={{ opacity: 0, y: 8 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.4 }}
+    className={`
+      bg-white/80 dark:bg-gray-900/80 
+      backdrop-blur-sm
+      rounded-2xl 
+      shadow-[0_1px_3px_rgba(0,0,0,0.05),0_20px_40px_-20px_rgba(0,0,0,0.1)]
+      dark:shadow-[0_1px_3px_rgba(0,0,0,0.2),0_20px_40px_-20px_rgba(0,0,0,0.4)]
+      border border-black/[0.04] dark:border-white/[0.06]
+      overflow-hidden 
+      transition-all duration-300
+      hover:shadow-[0_1px_3px_rgba(0,0,0,0.05),0_30px_50px_-20px_rgba(0,0,0,0.15)]
+      dark:hover:shadow-[0_1px_3px_rgba(0,0,0,0.2),0_30px_50px_-20px_rgba(0,0,0,0.5)]
+      hover:border-black/[0.06] dark:hover:border-white/[0.08]
+      ${className}
+    `}
+  >
+    {/* Header */}
+    <div className="px-6 py-4 border-b border-black/[0.04] dark:border-white/[0.06] flex items-center gap-3 bg-gray-50/50 dark:bg-gray-800/30">
+      {icon && (
+        <div className="w-8 h-8 rounded-lg bg-white dark:bg-gray-800 shadow-sm border border-black/[0.04] dark:border-white/[0.06] flex items-center justify-center">
+          {icon}
+        </div>
+      )}
+      <h3 className="font-semibold text-gray-900 dark:text-white tracking-tight">{title}</h3>
     </div>
+    
+    {/* Content */}
     <div className={noPadding ? '' : 'p-6'}>
       {children}
     </div>
-  </div>
+  </motion.div>
 );
 
 export default SectionCard;

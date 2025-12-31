@@ -1,226 +1,307 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles, Gauge, ShieldCheck } from 'lucide-react';
-import img1 from '../../assets/Gemini_Generated_Image_1jedny1jedny1jed.png';
-import img2 from '../../assets/Gemini_Generated_Image_1o67fz1o67fz1o67.png';
-import img3 from '../../assets/Gemini_Generated_Image_94648j94648j9464.png';
-import img4 from '../../assets/Gemini_Generated_Image_ejg48gejg48gejg4.png';
-import img5 from '../../assets/Gemini_Generated_Image_k8lls7k8lls7k8ll.png';
-import img6 from '../../assets/Gemini_Generated_Image_kft5s5kft5s5kft5.png';
+import React, { useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { ArrowRight, Play, Sparkles, Zap, Shield, Target } from 'lucide-react';
 
 interface AnimatedHeroProps {
   onGetStarted: () => void;
 }
 
+/**
+ * AnimatedHero - Apple-Level Premium Hero Section
+ * 
+ * Features:
+ * - Stunning gradient mesh background with animation
+ * - 3D floating elements with parallax
+ * - Premium typography with gradient text
+ * - Micro-interactions throughout
+ * - Social proof and trust indicators
+ */
 const AnimatedHero: React.FC<AnimatedHeroProps> = ({ onGetStarted }) => {
-  const showcaseImages = [img1, img2, img3, img4, img5, img6];
-  const duplicatedImages = [...showcaseImages, ...showcaseImages];
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const y = useSpring(useTransform(scrollYProgress, [0, 1], [0, 200]), { stiffness: 100, damping: 30 });
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
   const stats = [
-    { label: 'Build time saved', value: '10x' },
-    { label: 'Confidence lift', value: '+37%' },
-    { label: 'Blueprints shipped', value: '18,400' }
+    { value: '10x', label: 'Faster planning' },
+    { value: '18K+', label: 'Blueprints created' },
+    { value: '94%', label: 'Founder satisfaction' },
   ];
 
-  const FADE_IN = {
-    hidden: { opacity: 0, y: 20 },
-    show: {
+  const features = [
+    { icon: Zap, label: 'AI-Powered', color: 'text-amber-500' },
+    { icon: Shield, label: 'Enterprise Ready', color: 'text-emerald-500' },
+    { icon: Target, label: 'VC Validated', color: 'text-blue-500' },
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
       opacity: 1,
       y: 0,
       transition: {
         type: 'spring',
         stiffness: 100,
-        damping: 20
+        damping: 20,
       }
     }
   };
 
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden pt-24 pb-20 px-6 md:px-10 lg:px-12">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-slate-100 dark:from-black dark:via-slate-950 dark:to-slate-900" />
-      <div className="pointer-events-none absolute inset-0 opacity-100 [background:radial-gradient(ellipse_at_20%_30%,rgba(59,130,246,0.12),transparent_40%),radial-gradient(ellipse_at_80%_70%,rgba(168,85,247,0.08),transparent_45%)]" />
+    <section 
+      ref={containerRef}
+      className="relative min-h-[100vh] w-full flex items-center justify-center overflow-hidden"
+    >
+      {/* Animated Background */}
+      <div className="absolute inset-0">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50/50 to-gray-100/80 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950" />
+        
+        {/* Animated gradient orbs */}
+        <motion.div
+          className="absolute top-[10%] left-[10%] w-[600px] h-[600px] rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%)',
+          }}
+          animate={{
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div
+          className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%)',
+          }}
+          animate={{
+            x: [0, -40, 0],
+            y: [0, -50, 0],
+            scale: [1, 1.15, 1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: 2,
+          }}
+        />
+        <motion.div
+          className="absolute top-[40%] right-[20%] w-[400px] h-[400px] rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, transparent 70%)',
+          }}
+          animate={{
+            x: [0, 30, 0],
+            y: [0, -40, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: 4,
+          }}
+        />
 
-      {/* Animated gradient orbs - more subtle and refined */}
-      <motion.div
-        className="absolute top-1/3 -left-32 w-96 h-96 rounded-full bg-blue-300/30 dark:bg-blue-600/15 blur-3xl"
-        animate={{ scale: [1, 1.05, 1], opacity: [0.4, 0.6, 0.4] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 -right-32 w-80 h-80 rounded-full bg-purple-300/20 dark:bg-purple-600/12 blur-3xl"
-        animate={{ scale: [1, 1.08, 1], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-      />
+        {/* Grid pattern overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.015] dark:opacity-[0.03]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
+          }}
+        />
+      </div>
 
-      {/* Hero Content */}
-      <div className="relative z-10 max-w-5xl mx-auto grid lg:grid-cols-[1fr_1fr] gap-16 items-center">
-        <motion.div initial="hidden" animate="show" variants={FADE_IN} className="space-y-10">
-          <motion.div
-            variants={FADE_IN}
-            className="inline-flex items-center gap-3 rounded-full border border-slate-200/60 dark:border-white/10 bg-white/70 dark:bg-white/5 px-5 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-200 backdrop-blur-2xl"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-            </span>
-            AI-powered startup studio
+      {/* Main Content */}
+      <motion.div 
+        className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 pt-32 pb-20"
+        style={{ y, opacity, scale }}
+      >
+        <motion.div
+          className="text-center"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {/* Badge */}
+          <motion.div variants={itemVariants} className="flex justify-center mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-black/[0.04] dark:border-white/[0.08] shadow-glass">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                Now with GPT-4 & Gemini Pro
+              </span>
+            </div>
           </motion.div>
 
-          <motion.h1
-            initial="hidden"
-            animate="show"
-            variants={{
-              hidden: {},
-              show: { transition: { staggerChildren: 0.08 } }
-            }}
-            className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.95] text-slate-900 dark:text-white"
+          {/* Main Headline */}
+          <motion.h1 
+            variants={itemVariants}
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.05] mb-8"
           >
-            <motion.span variants={FADE_IN} className="block">From zero</motion.span>
-            <motion.span variants={FADE_IN} className="block">to investor-</motion.span>
-            <motion.span variants={FADE_IN} className="block">
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">ready blueprint</span>
-            </motion.span>
+            <span className="block text-gray-900 dark:text-white">From idea to</span>
+            <span className="block mt-2">
+              <span className="gradient-text">investor-ready</span>
+            </span>
+            <span className="block text-gray-900 dark:text-white mt-2">blueprint</span>
           </motion.h1>
 
-          <motion.p
-            variants={FADE_IN}
-            transition={{ delay: 0.4 }}
-            className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed font-normal"
+          {/* Subheadline */}
+          <motion.p 
+            variants={itemVariants}
+            className="max-w-2xl mx-auto text-lg sm:text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-10"
           >
-            Turn your startup idea into a complete business blueprint with strategy, product design, technical roadmap, and execution plan—in minutes.
+            Transform your startup vision into a comprehensive business plan with AI-powered 
+            strategy, product design, technical roadmap, and pitch deck—in minutes, not months.
           </motion.p>
 
-          <motion.div
-            variants={FADE_IN}
-            transition={{ delay: 0.5 }}
-            className="flex flex-col sm:flex-row gap-4 pt-4"
+          {/* CTA Buttons */}
+          <motion.div 
+            variants={itemVariants}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           >
             <motion.button
               onClick={onGetStarted}
-              className="relative px-8 py-4 rounded-full text-base font-semibold text-white bg-slate-900 dark:bg-white dark:text-slate-900 border border-slate-900 dark:border-white shadow-lg shadow-slate-900/20 dark:shadow-white/20 transition-all duration-300 overflow-hidden group hover:scale-105"
-              whileHover={{ y: -2 }}
+              className="group relative px-8 py-4 rounded-full text-base font-semibold text-white bg-gray-900 dark:bg-white dark:text-gray-900 shadow-apple-lg overflow-hidden"
+              whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span className="relative inline-flex items-center gap-2">
-                Get your blueprint
+              <span className="relative z-10 flex items-center gap-2">
+                Generate your blueprint
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-brand-600 via-brand-500 to-purple-500"
+                initial={{ x: '-100%' }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.4 }}
+              />
             </motion.button>
 
             <motion.button
-              onClick={() => window.scrollTo({ top: window.innerHeight, behavior: "smooth" })}
-              className="px-8 py-4 rounded-full border-2 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white font-semibold text-base transition-all duration-300 hover:bg-slate-100 dark:hover:bg-slate-900"
-              whileHover={{ y: -2 }}
+              onClick={() => document.getElementById('workflow')?.scrollIntoView({ behavior: 'smooth' })}
+              className="flex items-center gap-2 px-8 py-4 rounded-full text-base font-semibold text-gray-700 dark:text-gray-200 border border-black/10 dark:border-white/15 hover:bg-black/[0.02] dark:hover:bg-white/[0.05] transition-colors"
+              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
+              <Play className="w-5 h-5" />
               See how it works
             </motion.button>
           </motion.div>
 
-          <motion.div
-            variants={FADE_IN}
-            transition={{ delay: 0.65 }}
-            className="grid grid-cols-3 gap-4 pt-8 border-t border-slate-200 dark:border-white/10"
+          {/* Feature Pills */}
+          <motion.div 
+            variants={itemVariants}
+            className="flex flex-wrap gap-3 justify-center mb-16"
+          >
+            {features.map((feature, index) => (
+              <motion.div
+                key={feature.label}
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 dark:bg-white/5 backdrop-blur-sm border border-black/[0.03] dark:border-white/[0.06]"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5 + index * 0.1 }}
+              >
+                <feature.icon className={`w-4 h-4 ${feature.color}`} />
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{feature.label}</span>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div 
+            variants={itemVariants}
+            className="grid grid-cols-3 gap-8 max-w-xl mx-auto pt-8 border-t border-black/[0.04] dark:border-white/[0.06]"
           >
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 + index * 0.1 }}
               >
-                <div className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white">{stat.value}</div>
-                <div className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 mt-2">{stat.label}</div>
+                <div className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-1">
+                  {stat.value}
+                </div>
+                <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  {stat.label}
+                </div>
               </motion.div>
             ))}
           </motion.div>
         </motion.div>
-
-        {/* Right side - Visual showcase */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.3 }}
-          className="relative hidden lg:block"
-        >
-          <div className="absolute -inset-6 bg-gradient-to-br from-blue-200/40 via-purple-200/20 to-transparent dark:from-blue-900/20 dark:via-purple-900/15 dark:to-transparent blur-3xl rounded-[40px]" />
-          <div className="relative rounded-3xl border border-slate-200/60 dark:border-white/10 bg-white/80 dark:bg-slate-900/60 backdrop-blur-2xl shadow-2xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-transparent dark:from-white/5 dark:via-transparent dark:to-transparent" />
-            <div className="relative p-8 space-y-8">
-              <div className="space-y-3">
-                <h3 className="text-sm uppercase tracking-widest text-slate-500 dark:text-slate-400 font-semibold">Your Blueprint Includes</h3>
-                <div className="grid grid-cols-2 gap-3">
-                  {[
-                    "Market Strategy",
-                    "Product Design",
-                    "Tech Architecture",
-                    "4-Week Roadmap",
-                    "Financial Model",
-                    "Pitch Deck"
-                  ].map((item) => (
-                    <motion.div
-                      key={item}
-                      className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300 font-medium"
-                      whileHover={{ x: 4 }}
-                    >
-                      <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                      {item}
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-              <div className="border-t border-slate-200/60 dark:border-white/10 pt-6">
-                <p className="text-xs text-slate-500 dark:text-slate-400">⚡ Average generation time: 22 seconds</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-slate-400 dark:text-slate-500">
-          <path d="M10 3v10M3 10l7 7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
       </motion.div>
 
-      {/* Animated Image Marquee */}
-      <div className="absolute bottom-0 left-0 w-full h-72 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_80%,transparent)]">
+      {/* Scroll Indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.5 }}
+      >
         <motion.div
-          className="flex gap-6"
-          animate={{
-            x: ['-33.33%', '0%'],
-            transition: {
-              ease: 'linear',
-              duration: 42,
-              repeat: Infinity
-            }
-          }}
+          className="w-6 h-10 rounded-full border-2 border-gray-300 dark:border-gray-600 flex justify-center pt-2"
+          animate={{ y: [0, 5, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
         >
-          {duplicatedImages.map((src, index) => (
-            <div
-              key={index}
-              className={`relative aspect-[3/4] h-48 md:h-56 flex-shrink-0 rounded-2xl overflow-hidden shadow-xl border border-white/60 dark:border-white/10 bg-white/70 dark:bg-white/5 backdrop-blur ${
-                index % 3 === 0 ? '[transform:perspective(1000px)_rotateZ(-1.5deg)]' : 
-                index % 3 === 1 ? '[transform:perspective(1000px)_rotateZ(1deg)]' : 
-                '[transform:perspective(1000px)_rotateZ(-0.25deg)]'
-              }`}
-            >
-              <img
-                src={src}
-                alt={`Showcase ${index + 1}`}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-          ))}
+          <motion.div
+            className="w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-gray-500"
+            animate={{ y: [0, 12, 0], opacity: [1, 0.3, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
         </motion.div>
-      </div>
+      </motion.div>
+
+      {/* Floating 3D Elements */}
+      <motion.div
+        className="absolute top-[20%] right-[8%] w-20 h-20 hidden lg:block"
+        animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <div className="w-full h-full rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 shadow-glow opacity-80" />
+      </motion.div>
+      
+      <motion.div
+        className="absolute bottom-[25%] left-[5%] w-16 h-16 hidden lg:block"
+        animate={{ y: [0, 20, 0], rotate: [0, -8, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+      >
+        <div className="w-full h-full rounded-xl bg-gradient-to-br from-purple-400 to-pink-500 shadow-lg opacity-70" />
+      </motion.div>
+
+      <motion.div
+        className="absolute top-[60%] right-[15%] w-12 h-12 hidden lg:block"
+        animate={{ y: [0, -12, 0], rotate: [0, 10, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+      >
+        <div className="w-full h-full rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 shadow-lg opacity-60" />
+      </motion.div>
     </section>
   );
 };

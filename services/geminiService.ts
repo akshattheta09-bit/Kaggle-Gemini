@@ -160,11 +160,45 @@ const startupPlanSchema: Schema = {
 };
 
 /**
+ * Sanitizes user input to prevent injection attacks
+ * @param input - Raw user input
+ * @returns Sanitized input safe for use in prompts
+ */
+const sanitizeInput = (input: string): string => {
+  // Remove potential prompt injection attempts
+  const sanitized = input
+    // Remove any attempts to override system prompts
+    .replace(/system\s*:/gi, '')
+    .replace(/assistant\s*:/gi, '')
+    .replace(/user\s*:/gi, '')
+    // Remove potential code injection markers
+    .replace(/<script[^>]*>.*?<\/script>/gi, '')
+    .replace(/```[\s\S]*?```/g, (match) => match.replace(/[<>]/g, ''))
+    // Limit length to prevent resource exhaustion
+    .slice(0, 5000)
+    // Escape special characters that could be used for injection
+    .replace(/[<>]/g, (char) => char === '<' ? '&lt;' : '&gt;')
+    .trim();
+  
+  return sanitized;
+};
+
+/**
+ * Validates the sector input
+ * @param sector - The sector to validate
+ * @returns boolean indicating if sector is valid
+ */
+const isValidSector = (sector: string): sector is Sector => {
+  const validSectors = ['AI', 'SaaS', 'E-commerce', 'FinTech', 'HealthTech', 'EdTech', 'CleanTech', 'Other'];
+  return validSectors.includes(sector);
+};
+
+/**
  * Generates a full startup plan using Gemini 3 Pro.
  * @param idea - The user's raw idea input.
  * @param sector - The selected industry sector.
  * @returns A structured StartupPlan object.
- * @throws Error if API key is missing.
+ * @throws Error if API key is missing or input is invalid.
  */
 export const generateStartupPlan = async (idea: string, sector: Sector): Promise<StartupPlan> => {
   // Check if API key is available
@@ -172,12 +206,27 @@ export const generateStartupPlan = async (idea: string, sector: Sector): Promise
     throw new Error("API key missing. Please configure your Gemini API key to generate startup plans.");
   }
 
+  // Validate and sanitize inputs
+  if (!idea || typeof idea !== 'string') {
+    throw new Error("Invalid idea input. Please provide a valid startup idea.");
+  }
+  
+  if (!isValidSector(sector)) {
+    throw new Error("Invalid sector selected. Please choose a valid industry sector.");
+  }
+
+  const sanitizedIdea = sanitizeInput(idea);
+  
+  if (sanitizedIdea.length < 10) {
+    throw new Error("Idea is too short. Please provide more details about your startup concept.");
+  }
+
   const prompt = `
     Act as a world-class startup founder and consultant (Y Combinator level).
     Analyze the following startup idea and generate a comprehensive startup plan.
     
     Sector: ${sector}
-    Idea: ${idea}
+    Idea: ${sanitizedIdea}
 
     Be critical, realistic, and strategic. Do not give generic fluff.
     Focus on viability, monetization, and rapid execution.

@@ -1,148 +1,222 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Target, Code, TrendingUp, CheckCircle2, Rocket, Sparkles, LucideIcon, ArrowRight } from 'lucide-react';
+import { Target, Code, TrendingUp, CheckCircle2, Rocket, Sparkles, FileText, PieChart, Lightbulb, Layers } from 'lucide-react';
 
-interface Capability {
-  icon: LucideIcon;
+/**
+ * Capabilities Section - Apple-Level Bento Grid Design
+ * 
+ * Features:
+ * - Beautiful bento grid layout
+ * - Glassmorphism cards
+ * - Smooth scroll animations
+ * - Interactive hover states
+ * - Dynamic content arrangement
+ */
+
+interface CapabilityCard {
+  icon: React.ElementType;
   title: string;
   description: string;
-  color: string;
+  gradient: string;
+  iconBg: string;
+  size?: 'default' | 'large' | 'wide';
 }
 
-const capabilities: Capability[] = [
+const capabilities: CapabilityCard[] = [
   {
     icon: Target,
-    title: "Strategy & Market",
-    description: "Positioning, moat, TAM, and competitive map grounded in first-principles reasoning.",
-    color: "brand"
+    title: "Market Strategy",
+    description: "TAM analysis, competitive positioning, and go-to-market strategy grounded in real market data.",
+    gradient: "from-blue-500/10 to-cyan-500/10",
+    iconBg: "from-blue-500 to-cyan-500",
+    size: 'large'
+  },
+  {
+    icon: Layers,
+    title: "Product Design",
+    description: "User journeys, feature specs, and wireframe concepts.",
+    gradient: "from-purple-500/10 to-pink-500/10",
+    iconBg: "from-purple-500 to-pink-500",
   },
   {
     icon: Code,
-    title: "Technical Scaffolding",
-    description: "Architecture, API design, data model, and repo structure—ready for handoff to engineers.",
-    color: "blue"
+    title: "Tech Architecture",
+    description: "Stack recommendations, API design, and database schema.",
+    gradient: "from-emerald-500/10 to-teal-500/10",
+    iconBg: "from-emerald-500 to-teal-500",
   },
   {
     icon: TrendingUp,
     title: "Viability Scoring",
-    description: "Multi-dimensional scoring across feasibility, timing, revenue potential, risk, and resourcing.",
-    color: "green"
-  },
-  {
-    icon: CheckCircle2,
-    title: "Product Definition",
-    description: "User journeys, feature sequencing, acceptance criteria, and crisp release notes.",
-    color: "purple"
+    description: "10-dimensional analysis covering feasibility, timing, competition, and market fit with actionable insights.",
+    gradient: "from-amber-500/10 to-orange-500/10",
+    iconBg: "from-amber-500 to-orange-500",
+    size: 'wide'
   },
   {
     icon: Rocket,
     title: "Execution Roadmap",
-    description: "Week-by-week sprints with owners, milestones, and success metrics.",
-    color: "orange"
+    description: "Sprint-by-sprint plan with milestones and KPIs.",
+    gradient: "from-rose-500/10 to-red-500/10",
+    iconBg: "from-rose-500 to-red-500",
   },
   {
-    icon: Sparkles,
-    title: "Pitch & Narrative",
-    description: "Investor and founder voice scripts plus a one-slide story spine.",
-    color: "pink"
-  }
+    icon: FileText,
+    title: "Pitch Scripts",
+    description: "VC-ready and founder voice pitches that resonate.",
+    gradient: "from-indigo-500/10 to-violet-500/10",
+    iconBg: "from-indigo-500 to-violet-500",
+  },
+  {
+    icon: PieChart,
+    title: "Financial Model",
+    description: "Revenue projections, unit economics, and pricing strategy tailored to your business model.",
+    gradient: "from-cyan-500/10 to-blue-500/10",
+    iconBg: "from-cyan-500 to-blue-500",
+    size: 'large'
+  },
 ];
 
-const colorClassMap: Record<string, { bg: string; text: string; border: string; glow: string }> = {
-  brand: { bg: 'bg-blue-50 dark:bg-blue-950/30', text: 'text-blue-600 dark:text-blue-400', border: 'border-blue-200 dark:border-blue-800', glow: 'group-hover:shadow-lg group-hover:shadow-blue-500/10' },
-  blue: { bg: 'bg-cyan-50 dark:bg-cyan-950/30', text: 'text-cyan-600 dark:text-cyan-400', border: 'border-cyan-200 dark:border-cyan-800', glow: 'group-hover:shadow-lg group-hover:shadow-cyan-500/10' },
-  green: { bg: 'bg-emerald-50 dark:bg-emerald-950/30', text: 'text-emerald-600 dark:text-emerald-400', border: 'border-emerald-200 dark:border-emerald-800', glow: 'group-hover:shadow-lg group-hover:shadow-emerald-500/10' },
-  purple: { bg: 'bg-purple-50 dark:bg-purple-950/30', text: 'text-purple-600 dark:text-purple-400', border: 'border-purple-200 dark:border-purple-800', glow: 'group-hover:shadow-lg group-hover:shadow-purple-500/10' },
-  orange: { bg: 'bg-orange-50 dark:bg-orange-950/30', text: 'text-orange-600 dark:text-orange-400', border: 'border-orange-200 dark:border-orange-800', glow: 'group-hover:shadow-lg group-hover:shadow-orange-500/10' },
-  pink: { bg: 'bg-pink-50 dark:bg-pink-950/30', text: 'text-pink-600 dark:text-pink-400', border: 'border-pink-200 dark:border-pink-800', glow: 'group-hover:shadow-lg group-hover:shadow-pink-500/10' }
-};
-
-/**
- * Capabilities Section - Apple Level Design
- * 
- * Clean, minimal showcase with:
- * - Simple, elegant cards
- * - Monochromatic icon treatment
- * - Subtle hover states
- * - Maximum clarity and readability
- */
 const Capabilities: React.FC = () => {
-  const ref = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target: sectionRef,
     offset: ["start end", "end start"]
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.2], [50, 0]);
 
   return (
-    <section ref={ref} className="relative py-32 px-6 md:px-8 bg-gradient-to-b from-slate-100 via-white to-slate-50 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 opacity-40 [background:radial-gradient(ellipse_at_25%_35%,rgba(59,130,246,0.10),transparent_35%),radial-gradient(ellipse_at_75%_65%,rgba(168,85,247,0.08),transparent_40%)]" />
-      <motion.div className="relative max-w-6xl mx-auto" style={{ opacity }}>
+    <section 
+      ref={sectionRef} 
+      id="features"
+      className="relative py-32 px-6 lg:px-8 overflow-hidden"
+    >
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-100/50 via-white to-white dark:from-gray-900/50 dark:via-gray-950 dark:to-gray-950" />
+
+      <motion.div 
+        className="relative max-w-6xl mx-auto"
+        style={{ opacity }}
+      >
         {/* Section Header */}
         <motion.div 
-          className="mb-20 max-w-3xl"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-5xl md:text-6xl font-black tracking-tight mb-6 text-slate-900 dark:text-white leading-[1.1]">
-            Everything included
+          <motion.div 
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 dark:bg-brand-950/30 border border-brand-200/50 dark:border-brand-800/30 mb-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            <Sparkles className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+            <span className="text-sm font-medium text-brand-700 dark:text-brand-300">Complete toolkit</span>
+          </motion.div>
+
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 dark:text-white mb-6">
+            Everything you need to{' '}
+            <span className="gradient-text">launch</span>
           </h2>
           
-          <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 leading-relaxed font-normal">
-            Every piece of your startup blueprint, generated by AI and grounded in proven patterns from successful companies.
+          <p className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+            Every component of your startup blueprint, generated by AI and refined by patterns from thousands of successful companies.
           </p>
         </motion.div>
 
-        {/* Capability Cards Grid */}
-        <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {capabilities.map((capability, index) => {
             const Icon = capability.icon;
-            const colorClasses = colorClassMap[capability.color];
-
+            const isLarge = capability.size === 'large';
+            const isWide = capability.size === 'wide';
+            
             return (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
+                key={capability.title}
+                className={`group relative rounded-3xl overflow-hidden ${
+                  isLarge ? 'md:row-span-2' : ''
+                } ${isWide ? 'md:col-span-2' : ''}`}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="group"
+                transition={{ duration: 0.5, delay: index * 0.08 }}
               >
-                <div className={`relative p-7 rounded-2xl border ${colorClasses.border} bg-white dark:bg-slate-800/80 backdrop-blur-xl transition-all duration-500 ${colorClasses.glow} hover:border-opacity-100 shadow-[0_20px_100px_rgba(15,23,42,0.12)]`}>
-                  {/* Icon Container */}
-                  <motion.div 
-                    className={`w-14 h-14 rounded-xl ${colorClasses.bg} flex items-center justify-center mb-5 ${colorClasses.text}`}
-                    whileHover={{ scale: 1.12, rotate: -5 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                  >
-                    <Icon className="w-7 h-7" />
-                  </motion.div>
-
+                <div className={`
+                  relative h-full p-8 
+                  bg-white/60 dark:bg-gray-900/40 
+                  backdrop-blur-xl 
+                  border border-black/[0.04] dark:border-white/[0.06]
+                  transition-all duration-500 ease-out
+                  group-hover:bg-white/80 dark:group-hover:bg-gray-900/60
+                  group-hover:border-black/[0.08] dark:group-hover:border-white/[0.1]
+                  group-hover:shadow-apple-lg
+                  group-hover:-translate-y-1
+                `}>
+                  {/* Gradient overlay on hover */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${capability.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                  
                   {/* Content */}
-                  <h3 className="text-lg font-bold mb-2 text-slate-900 dark:text-white group-hover:text-opacity-90 transition-colors">
-                    {capability.title}
-                  </h3>
-                  
-                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm font-normal">
-                    {capability.description}
-                  </p>
-                  
-                  {/* Hover indicator */}
-                  <motion.div
-                    className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"
-                    initial={{ x: -10 }}
-                    whileHover={{ x: 0 }}
-                  >
-                    <ArrowRight className={`w-5 h-5 ${colorClasses.text}`} />
-                  </motion.div>
+                  <div className="relative z-10 h-full flex flex-col">
+                    {/* Icon */}
+                    <motion.div 
+                      className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${capability.iconBg} flex items-center justify-center shadow-lg mb-6`}
+                      whileHover={{ scale: 1.1, rotate: -5 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                    >
+                      <Icon className="w-7 h-7 text-white" />
+                    </motion.div>
+
+                    {/* Title */}
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                      {capability.title}
+                    </h3>
+                    
+                    {/* Description */}
+                    <p className={`text-gray-600 dark:text-gray-400 leading-relaxed ${isLarge ? 'text-base' : 'text-sm'}`}>
+                      {capability.description}
+                    </p>
+
+                    {/* Spacer for consistent layout */}
+                    <div className="flex-1" />
+
+                    {/* Hover indicator */}
+                    <motion.div
+                      className="mt-6 flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                      initial={{ x: -10 }}
+                      whileHover={{ x: 0 }}
+                    >
+                      <span>Learn more</span>
+                      <motion.span
+                        animate={{ x: [0, 4, 0] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                      >
+                        →
+                      </motion.span>
+                    </motion.div>
+                  </div>
                 </div>
               </motion.div>
             );
           })}
+        </div>
+
+        {/* Bottom CTA */}
+        <motion.div 
+          className="mt-16 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+        >
+          <p className="text-gray-500 dark:text-gray-400 text-sm">
+            All modules generated in a single pass • Exported as structured JSON & PDF
+          </p>
         </motion.div>
       </motion.div>
     </section>

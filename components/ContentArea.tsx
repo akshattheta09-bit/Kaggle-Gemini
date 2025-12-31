@@ -14,8 +14,9 @@ import {
   PitchScriptView,
   ValidationTabView
 } from './TabViews';
-import { AlertTriangle, Sparkles } from 'lucide-react';
+import { AlertTriangle, Sparkles, Lightbulb, ArrowRight } from 'lucide-react';
 import { downloadBlueprint } from '../services/exportService';
+import { motion } from 'framer-motion';
 
 interface ContentAreaProps {
   plan: StartupPlan | null;
@@ -27,10 +28,13 @@ interface ContentAreaProps {
 }
 
 /**
- * ContentArea Component
+ * ContentArea Component - Apple-Level Premium Design
  * 
- * Displays the main results panel.
- * Features a refined empty state and error state.
+ * Features:
+ * - Elegant empty and error states
+ * - Smooth tab transitions
+ * - Premium card designs
+ * - Clean typography
  */
 const ContentArea: React.FC<ContentAreaProps> = ({ 
   plan, 
@@ -50,16 +54,30 @@ const ContentArea: React.FC<ContentAreaProps> = ({
   // State 1: Error
   if (error) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950 p-8 text-center h-full transition-colors duration-200">
-        <div className="bg-white dark:bg-slate-900 p-10 rounded-2xl shadow-premium border border-red-100 dark:border-red-900/30 mb-6 max-w-md animate-fadeIn">
-          <div className="w-16 h-16 bg-red-50 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
-            <AlertTriangle className="w-8 h-8 text-red-500 dark:text-red-400" />
+      <div className="flex-1 flex flex-col items-center justify-center p-8 text-center h-full mesh-bg">
+        <motion.div 
+          className="max-w-md"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="w-20 h-20 mx-auto mb-6 rounded-3xl bg-red-50 dark:bg-red-950/30 flex items-center justify-center">
+            <AlertTriangle className="w-10 h-10 text-red-500 dark:text-red-400" />
           </div>
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Generation Failed</h2>
-          <p className="text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
-            We couldn't generate your startup plan this time. Please check your connection and try again.
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+            Generation Failed
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+            We couldn't generate your startup blueprint. This might be due to a network issue or API limit. Please try again.
           </p>
-        </div>
+          <button
+            onClick={() => window.location.reload()}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:opacity-90 transition-opacity"
+          >
+            Try again
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </motion.div>
       </div>
     );
   }
@@ -67,34 +85,82 @@ const ContentArea: React.FC<ContentAreaProps> = ({
   // State 2: Empty (User hasn't generated anything yet)
   if (!plan) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-950/70 dark:to-slate-950 p-8 text-center h-full transition-colors duration-200 relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 opacity-60 [background:radial-gradient(circle_at_20%_20%,rgba(94,162,255,0.14),transparent_32%),radial-gradient(circle_at_80%_20%,rgba(0,213,255,0.10),transparent_28%),radial-gradient(circle_at_70%_80%,rgba(97,165,255,0.10),transparent_30%)]" />
-
-        <div className="relative animate-fadeIn flex flex-col items-center gap-4 px-8 py-10 rounded-3xl border border-white/70 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur shadow-[0_18px_70px_rgba(79,140,255,0.12)]">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-lg shadow-brand-500/25">
-             <Sparkles className="w-7 h-7 text-white" />
-          </div>
-          <div className="space-y-1">
-            <p className="text-xs uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400 font-semibold">
-              Awaiting Input
-            </p>
-            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md leading-relaxed">
-              Add your sector and idea on the left to generate a full blueprint—strategy, product, tech, roadmap, and pitch—in one pass.
-            </p>
-          </div>
-          <div className="flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400">
-            <div className="w-2 h-2 rounded-full bg-emerald-500/70" />
-            <span>System ready</span>
-          </div>
+      <div className="flex-1 flex flex-col items-center justify-center p-8 text-center h-full mesh-bg relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.div
+            className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-brand-100/50 dark:bg-brand-900/20 blur-3xl"
+            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+            transition={{ duration: 8, repeat: Infinity }}
+          />
+          <motion.div
+            className="absolute bottom-1/3 left-1/3 w-48 h-48 rounded-full bg-purple-100/40 dark:bg-purple-900/15 blur-3xl"
+            animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.4, 0.2] }}
+            transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+          />
         </div>
 
+        <motion.div 
+          className="relative max-w-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* Icon */}
+          <motion.div 
+            className="w-24 h-24 mx-auto mb-8 rounded-3xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center shadow-glow"
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <Sparkles className="w-12 h-12 text-white" />
+          </motion.div>
+
+          {/* Text */}
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            Ready to build your blueprint
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+            Describe your startup idea in the sidebar to generate a comprehensive business plan—complete with strategy, product specs, technical architecture, and investor pitch.
+          </p>
+
+          {/* Tips */}
+          <div className="p-6 rounded-2xl bg-white/60 dark:bg-gray-900/40 backdrop-blur-xl border border-black/[0.04] dark:border-white/[0.06]">
+            <div className="flex items-center gap-2 mb-4">
+              <Lightbulb className="w-5 h-5 text-amber-500" />
+              <span className="font-semibold text-gray-900 dark:text-white">Tips for best results</span>
+            </div>
+            <ul className="text-left space-y-2 text-sm text-gray-600 dark:text-gray-400">
+              <li className="flex items-start gap-2">
+                <span className="text-brand-500 mt-1">•</span>
+                <span>Be specific about the problem you're solving</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-brand-500 mt-1">•</span>
+                <span>Define your target customer clearly</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-brand-500 mt-1">•</span>
+                <span>Mention what makes your approach unique</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Status */}
+          <div className="mt-8 flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            System ready
+          </div>
+        </motion.div>
       </div>
     );
   }
 
   // State 3: Displaying Results
   return (
-    <div className="flex-1 flex flex-col h-full bg-slate-50 dark:bg-slate-950 overflow-hidden transition-colors duration-200">
+    <div className="flex-1 flex flex-col h-full bg-gray-50/50 dark:bg-gray-950/50 overflow-hidden">
       <Header 
         activeTab={activeTab} 
         onTabChange={setActiveTab} 
@@ -103,8 +169,14 @@ const ContentArea: React.FC<ContentAreaProps> = ({
       />
 
       {/* Main content scrollable area */}
-      <div className="flex-1 overflow-y-auto scroll-smooth">
-        <div className="max-w-5xl mx-auto p-6 md:p-10 pb-20 animate-fadeIn space-y-8">
+      <div className="flex-1 overflow-y-auto">
+        <motion.div 
+          className="max-w-5xl mx-auto p-6 md:p-10 pb-20"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          key={activeTab}
+        >
           {activeTab === 'strategy' && <StrategyView data={plan.strategy} />}
           {activeTab === 'viability' && <ViabilityView data={plan.viability} />}
           {activeTab === 'execution-roadmap' && <ExecutionRoadmapView data={plan.executionRoadmap} />}
@@ -115,8 +187,15 @@ const ContentArea: React.FC<ContentAreaProps> = ({
           {activeTab === 'app-scaffold' && <AppScaffoldView data={plan.appScaffold} />}
           {activeTab === 'financials' && <FinancialsView data={plan.financials} />}
           {activeTab === 'assets' && <AssetsView data={plan.assets} />}
-          {activeTab === 'validation' && onAddValidationLog && <ValidationTabView data={plan} validationLogs={validationLogs} extractedAssumptions={extractedAssumptions} onAddValidationLog={onAddValidationLog} />}
-        </div>
+          {activeTab === 'validation' && onAddValidationLog && (
+            <ValidationTabView 
+              data={plan} 
+              validationLogs={validationLogs} 
+              extractedAssumptions={extractedAssumptions} 
+              onAddValidationLog={onAddValidationLog} 
+            />
+          )}
+        </motion.div>
       </div>
     </div>
   );
